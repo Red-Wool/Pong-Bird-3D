@@ -8,7 +8,7 @@ public class PlayerRotate : MonoBehaviour
 {
     private PlayerMove p;
 
-    [SerializeField] private Vector3 moveMult;
+    [SerializeField] private AnimationCurve rotateMult;
 
     private Vector3 rotate;
 
@@ -19,15 +19,20 @@ public class PlayerRotate : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        rotate.z = p.Move.x * -5;
-        rotate.x = p.Move.z * 5;
+        rotate.x = p.Move.magnitude * rotateMult.Evaluate(p.Move.magnitude);
+        //rotate.z = p.Move.z * moveMult.z * -1;
+        
 
-        rotate.x *= moveMult.x;
-        rotate.z *= moveMult.z;
+        //rotate.y = Mathf.Atan2(rotate.x, rotate.z) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(Vector3.Slerp(FixRotation(transform.rotation.eulerAngles), rotate, 0.2f));
+        //rotate.x *= moveMult.x;
+        //rotate.z *= moveMult.z;
+
+        rotate.y = Mathf.Atan2(p.Move.x, p.Move.z) * Mathf.Rad2Deg * p.Move.normalized.magnitude;
+
+        transform.rotation = Quaternion.Euler(Vector3.Slerp(FixRotation(transform.rotation.eulerAngles), rotate, 0.1f));
         
     }
 
