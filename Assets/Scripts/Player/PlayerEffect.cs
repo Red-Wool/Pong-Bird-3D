@@ -5,14 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMove))]
 public class PlayerEffect : MonoBehaviour
 {
-    private Controls control;
+    private PlayerMove player;
+    [SerializeField] private Controls control;
 
     [SerializeField] ParticleSystem flap;
     [SerializeField] ParticleSystem glide;
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GetComponent<PlayerMove>();
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class PlayerEffect : MonoBehaviour
         {
             ToggleGlide(true);
         }
-        else if (Input.GetKeyUp(control.dash))
+        else if (Input.GetKeyUp(control.dash) || !player.IsDash)
         {
             ToggleGlide(false);
         }
