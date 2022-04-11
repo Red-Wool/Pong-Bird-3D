@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c35c857c0c80640b1bcfd0b3f0cccb, type: 3}
   m_Name: PongBird
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 15
   jump: 8
   gravityScale: 60
-  dashPower: 3
+  dashPower: 2.5
   dashTime: 0.2
   dashGravity: 0.06
   dashMoveScale: 1.5
