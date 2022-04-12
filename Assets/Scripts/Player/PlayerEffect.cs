@@ -10,6 +10,7 @@ public class PlayerEffect : MonoBehaviour
 
     [SerializeField] ParticleSystem flap;
     [SerializeField] ParticleSystem glide;
+    [SerializeField] ParticleSystem line;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,9 @@ public class PlayerEffect : MonoBehaviour
     {
         var main = glide.main;
         main.loop = flag;
+        var lineMain = line.main;
+        lineMain.loop = flag;
+        
         if (flag)
         {
             glide.Play();
