@@ -95,4 +95,9 @@ public class PlayerMove : MonoBehaviour
             isDash = false;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        isDash = false;
+    }
 }

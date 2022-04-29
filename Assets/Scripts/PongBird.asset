@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PongBird
   m_EditorClassIdentifier: 
   speed: 15
-  jump: 8
+  jump: 12
   gravityScale: 60
-  dashPower: 2.5
+  dashPower: 1.5
   dashTime: 0.2
   dashGravity: 0.06
   dashMoveScale: 1.5
   dashMaxSpeed: 40
   dashVertVelScale: 0.1
-  dashCancelJumpScale: 0.8
+  dashCancelJumpScale: 0.5

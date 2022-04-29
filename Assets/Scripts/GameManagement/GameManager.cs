@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerMove player;
     [SerializeField] private PaddleObject paddle;
 
-    private int score; public int Score { get { return score; } }
+    private static int score; public static int Score { get { return score; } }
 
     // Start is called before the first frame update
     void Start()
