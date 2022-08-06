@@ -8,9 +8,9 @@ public class PlayerEffect : MonoBehaviour
     private PlayerMove player;
     [SerializeField] private Controls control;
 
-    [SerializeField] ParticleSystem flap;
-    [SerializeField] ParticleSystem glide;
-    [SerializeField] ParticleSystem line;
+    [SerializeField] ParticleSystem flap; public ParticleSystem Flap { get { return flap; } }
+    [SerializeField] ParticleSystem glide; public ParticleSystem Glide { get { return glide; } }
+    [SerializeField] ParticleSystem line; public ParticleSystem Line { get { return line; } }
     // Start is called before the first frame update
     void Start()
     {
