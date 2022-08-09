@@ -10,4 +10,5 @@ public class Controls : ScriptableObject
     public KeyCode left;
     public KeyCode right;
     public KeyCode dash;
+    public KeyCode dive;
 }

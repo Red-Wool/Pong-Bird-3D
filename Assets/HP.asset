@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf38f7a2be04e742b02e8ac122b9cf8, type: 3}
-  m_Name: PlayerControls
+  m_Script: {fileID: 11500000, guid: c09662f4bd95fda4b8b31c9e06952863, type: 3}
+  m_Name: HP
   m_EditorClassIdentifier: 
-  sens: 0
-  jump: 32
-  left: 0
-  right: 0
-  dash: 323
+  value: 0

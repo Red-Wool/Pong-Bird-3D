@@ -7,6 +7,8 @@ public class DrillMove : MonoBehaviour
 {
     [SerializeField] private float speed;
 
+    [SerializeField] private float isHoming;
+
     // Start is called before the first frame update
     void Start()
     {

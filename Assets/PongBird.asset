@@ -12,16 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c35c857c0c80640b1bcfd0b3f0cccb, type: 3}
   m_Name: PongBird
   m_EditorClassIdentifier: 
-  speed: 15
+  maxHP: 4
+  maxJump: 3
+  maxStamina: 5
+  staminaGroundRegain: 10
+  staminaFlapRegain: 2.5
+  staminaDashCost: 0.2
+  staminaRaiseCost: 0.3
+  staminaRaiseRate: 1.5
+  speed: 30
   maxSpeed: 5
-  speedDecay: 10
+  speedDecay: 2
   jump: 12
   jumpCooldown: 0.3
   holdJump: 20
   holdJumpCap: 8
+  divePower: 30
+  diveTimeCap: 1
+  diveGroundJump: {x: -25, y: 10}
+  diveGroundDash: {x: 5, y: 0}
+  diveAirJump: {x: 40, y: -6}
   groundCheckCenter: {x: 0, y: -1.3, z: 0}
   groundCheckSize: {x: 0.5, y: 0.2, z: 0.5}
-  wallClimbJump: {x: 20, y: 12}
+  wallClimbJump: {x: 15, y: 12}
+  wallClimpCooldown: 0.1
   gravityScale: 150
   downGravityScale: 50
   dashPower: 1.5
@@ -29,12 +43,15 @@ MonoBehaviour:
   dashGravity: 0.06
   dashMoveScale: 1
   dashMaxMoveScale: 2
+  dashGroundLand: {x: 0, y: 0}
+  dashGroundJump: {x: 25, y: 3}
   dashRaiseTime: 0.5
   dashRaiseSpeedPower: 1
   dashRaiseYPower: 15
   dashRaiseBasePower: 0.8
   dashRaiseSpeedYCap: 0
   dashRaiseSpeedDecay: 2
+  dashRaiseJumpBoost: 5
   dashMaxSpeed: 40
   dashMaxMoveCap: 20
   dashVertVelScale: 0.1

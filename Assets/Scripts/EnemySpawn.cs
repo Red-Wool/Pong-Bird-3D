@@ -20,7 +20,7 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        timer += Time.deltaTime;
     }
 
     public void SummonEnemies()
@@ -28,5 +28,10 @@ public class EnemySpawn : MonoBehaviour
         float dangerLvl = timeScale * (1 + pointTimeMult * GameManager.Score) * timer + GameManager.Score * pointBaseScale;
         int enemyPts = (int)Random.Range(dangerLvl * 0.2f, dangerLvl * 0.6f);
 
+
+        for (int i = 0; i < enemyPts; i++)
+        {
+
+        }
     }
 }

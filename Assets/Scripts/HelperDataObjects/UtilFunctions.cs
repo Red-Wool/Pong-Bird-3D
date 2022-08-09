@@ -15,6 +15,11 @@ public static class UtilFunctions
         return new Vector2(x, z).magnitude;
     }
 
+    public static Vector3 MagnitudeChange(Vector3 dir, float mag)
+    {
+        return new Vector3(dir.x,0f,dir.z).normalized * mag;
+    }
+
     public static void GrowObject(GameObject obj)
     {
         obj.transform.localScale = Vector3.zero;
