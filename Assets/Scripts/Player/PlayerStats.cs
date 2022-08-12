@@ -13,6 +13,7 @@ public class PlayerStats : ScriptableObject
     [Space(10)]
     public float staminaGroundRegain;
     public float staminaFlapRegain;
+    public float staminaGrantRegain;
 
     public float staminaDashCost;
     public float staminaRaiseCost;

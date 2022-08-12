@@ -17,7 +17,8 @@ MonoBehaviour:
   maxStamina: 5
   staminaGroundRegain: 10
   staminaFlapRegain: 2.5
-  staminaDashCost: 0.2
+  staminaGrantRegain: 4
+  staminaDashCost: 0.4
   staminaRaiseCost: 0.3
   staminaRaiseRate: 1.5
   speed: 30
@@ -33,7 +34,7 @@ MonoBehaviour:
   diveGroundDash: {x: 5, y: 0}
   diveAirJump: {x: 40, y: -6}
   groundCheckCenter: {x: 0, y: -1.3, z: 0}
-  groundCheckSize: {x: 0.5, y: 0.2, z: 0.5}
+  groundCheckSize: {x: 0.4, y: 0.2, z: 0.4}
   wallClimbJump: {x: 15, y: 12}
   wallClimpCooldown: 0.1
   gravityScale: 150

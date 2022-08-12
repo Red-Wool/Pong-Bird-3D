@@ -7,6 +7,7 @@ TagManager:
   - Death
   - Paddle
   - Ground
+  - Slippery
   layers:
   - Default
   - TransparentFX

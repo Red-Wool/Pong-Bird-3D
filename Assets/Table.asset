@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d34d4e871a1d6499da6a91007af3e2, type: 3}
+  m_Name: Table
+  m_EditorClassIdentifier: 
+  table:
+  - prefab:
+      poolObject: {fileID: 1888939002548503880, guid: 2b7c56048c263074680da09175969bdc,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 10, y: 10, z: 10}
+  - prefab:
+      poolObject: {fileID: 8191603240827491992, guid: bac8e0de71ba66846a1093537bed22eb,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 2, z: 12}
+  - prefab:
+      poolObject: {fileID: 9096790857232973486, guid: b2b63e50d340cf24caf96d47b21b9820,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}

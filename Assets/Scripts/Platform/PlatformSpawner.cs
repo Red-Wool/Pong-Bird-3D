@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
 {
+    [SerializeField] private bool hasPlatform; public bool HasPlatform { get { return hasPlatform; } }
     [SerializeField] private GameObject spawnIsland;
 
-    [SerializeField] private PlatformSpawn[] prefab;
+    [SerializeField] private PlatformSpawnTable prefab;
     [SerializeField] private PlatformLocation[] platform;
 
     private void Awake()
     {
-        foreach(PlatformSpawn p in prefab)
+        foreach(PlatformSpawn p in prefab.table)
         {
             p.prefab.AddObjects();
         }
@@ -24,14 +25,22 @@ public class PlatformSpawner : MonoBehaviour
     {
         foreach (PlatformLocation p in platform)
         {
-            if (Random.Range(0f,1f) < .3f)
+            if (p.HasPlatform)
             {
-                p.Spawn(prefab[Random.Range(0, prefab.Length)]);
+                if (Random.Range(0f, 1f) < .1f)
+                {
+                    p.Spawn(prefab.table[Random.Range(0, prefab.table.Length)]);
+                }
+                else if (Random.Range(0f, 1f) < .6f)
+                {
+                    p.Remove();
+                }
             }
-            else
+            else if (Random.Range(0f, 1f) < .15f)
             {
-                p.Remove();
+                p.Spawn(prefab.table[Random.Range(0, prefab.table.Length)]);
             }
+
         }
     }
 }

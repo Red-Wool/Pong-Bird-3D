@@ -51,6 +51,8 @@ public class PlayerMove : MonoBehaviour
         hp.value = stats.maxHP;
         stamina.value = stats.maxStamina;
         jump.value = stats.maxJump;
+
+        PaddleObject.PointScored += Grant;
     }
 
     // Update is called once per frame
@@ -229,13 +231,24 @@ public class PlayerMove : MonoBehaviour
 
         if (isLate)
         {
+            //Debug.Log("Add it up " + lateMove);
+            
+            move += lateMove;
+
             isLate = false;
-            move = lateMove;
-            //lateMove = Vector3.zero;
+            lateMove = Vector3.zero;
         }
 
         rb.velocity = move;
         rb.AddForce(Physics.gravity * stats.gravityScale * Time.deltaTime, ForceMode.Acceleration);
+    }
+
+    public void Grant()
+    {
+        if (isDash)
+            stamina.value += stats.staminaGrantRegain;
+        else
+            jump.value++;
     }
 
     public void ChangeStamina(float val)
@@ -244,7 +257,7 @@ public class PlayerMove : MonoBehaviour
 
         if (stamina.value < 0f)
         {
-            stamina.value = -.5f;
+            stamina.value = 0f;
             move.y += stats.dashRaiseJumpBoost * dashRaiseTime;
             isDash = false;
         }
@@ -258,6 +271,14 @@ public class PlayerMove : MonoBehaviour
         effect.Flap.Play();
         Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x);
         return new Vector3(backDist.x, stats.wallClimbJump.y, backDist.z);
+    }
+
+    public void Launch(Vector3 dir)
+    {
+        isLate = true;
+
+        dashDirection += dir;
+        lateMove += dir; 
     }
 
     public void Pong()
@@ -299,38 +320,46 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Paddle")
+        if (collision.gameObject.tag != "Slippery")
         {
-            /*if (isDash)
+            if (collision.gameObject.tag != "Paddle")
             {
-                isDash = false;
-
-                if (CheckGrounded())
+                /*if (isDash)
                 {
-                    Debug.Log("Landed! " + dashDirection);
-                    move = UtilFunctions.MagnitudeChange(dashDirection, stats.dashGroundLand.x) + Vector3.up * stats.dashGroundLand.y;
-                    Debug.Log(move);
-                }
-                
+                    isDash = false;
 
-                
-            }*/
+                    if (CheckGrounded())
+                    {
+                        Debug.Log("Landed! " + dashDirection);
+                        move = UtilFunctions.MagnitudeChange(dashDirection, stats.dashGroundLand.x) + Vector3.up * stats.dashGroundLand.y;
+                        Debug.Log(move);
+                    }
 
-            isDash = false;
+
+
+                }*/
+
+                isDash = false;
+            }
+            else
+            {
+                Pong();
+
+
+            }
         }
-        else
-        {
-            Pong();
-
-
-        }
+        
             
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        touching = true;
-        contactPoint = collision.GetContact(0).point;
+        if (collision.transform.tag != "Slippery")
+        {
+            touching = true;
+            contactPoint = collision.GetContact(0).point;
+        }
+        
 
         /*if (collision.gameObject.tag == "Ground" && CheckGrounded())
         {

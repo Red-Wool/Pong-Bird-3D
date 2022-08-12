@@ -3,22 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class DrillMove : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class DrillMove : EnemyTemplate
 {
     [SerializeField] private float speed;
 
-    [SerializeField] private float isHoming;
+    [SerializeField] private bool isHoming;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public override void Reset(Vector3 pos, GameObject t)
+    {
+        base.Reset(pos, t);
+
+        Debug.Log(Target.transform.position);
+        transform.LookAt(Target.transform.position + UtilFunctions.RandomV3(new Vector3(25f, 15f, 25f)) + Vector3.up * 12f);
+        rb.velocity = transform.forward * speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.forward * speed * Time.deltaTime);
+        rb.velocity = transform.forward * speed;
+        //transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
     public void Spawn()
