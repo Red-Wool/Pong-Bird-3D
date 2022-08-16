@@ -273,7 +273,7 @@ public class PlayerMove : MonoBehaviour
         wallTime = stats.wallClimpCooldown;
 
         effect.Flap.Play();
-        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x) + ;
+        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x);
         return new Vector3(backDist.x, stats.wallClimbJump.y, backDist.z);
     }
 
