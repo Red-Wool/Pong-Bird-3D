@@ -243,6 +243,10 @@ public class PlayerMove : MonoBehaviour
         rb.AddForce(Physics.gravity * stats.gravityScale * Time.deltaTime, ForceMode.Acceleration);
     }
 
+    public void Damage()
+    {
+        Debug.Log("Ow");
+    }
     public void Grant()
     {
         if (isDash)
@@ -269,7 +273,7 @@ public class PlayerMove : MonoBehaviour
         wallTime = stats.wallClimpCooldown;
 
         effect.Flap.Play();
-        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x);
+        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x) + ;
         return new Vector3(backDist.x, stats.wallClimbJump.y, backDist.z);
     }
 

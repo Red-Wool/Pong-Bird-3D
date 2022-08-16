@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09662f4bd95fda4b8b31c9e06952863, type: 3}
   m_Name: HP
   m_EditorClassIdentifier: 
-  value: 0
+  value: 4

@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyDataTable : ScriptableObject
 {
     public EnemyInfo[] enemy;
+    public EnemyBulletAttack[] attacks;
 
     private int curIndex = -1;
     private int savedVal = -1;

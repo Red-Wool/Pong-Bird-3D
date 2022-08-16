@@ -19,10 +19,22 @@ public class EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        PaddleObject.PointScored += ResetTimer;
+
         foreach(EnemyInfo e in enemies.enemy)
         {
             e.enemyPrefab.AddObjects();
         }
+        foreach(EnemyBulletAttack a in enemies.attacks)
+        {
+            a.Reset();
+        }
+    }
+
+    public void ResetTimer()
+    {
+        timer = 0;
     }
 
     // Update is called once per frame
@@ -75,7 +87,6 @@ public struct EnemyInfo
     public int weight;
 
     public EnemyType type;
-
 }
 
 public enum EnemyType

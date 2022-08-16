@@ -6,9 +6,11 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class DrillMove : EnemyTemplate
 {
-    [SerializeField] private float speed;
+    [SerializeField] private DrillStats stat;
+    [SerializeField] private EnemyBulletAttack shoot;
 
-    [SerializeField] private bool isHoming;
+    private bool explode;
+    private float timer;
     private Rigidbody rb;
 
     // Start is called before the first frame update
@@ -21,15 +23,26 @@ public class DrillMove : EnemyTemplate
     {
         base.Reset(pos, t);
 
-        Debug.Log(Target.transform.position);
+        //Debug.Log(Target.transform.position);
         transform.LookAt(Target.transform.position + UtilFunctions.RandomV3(new Vector3(25f, 15f, 25f)) + Vector3.up * 12f);
-        rb.velocity = transform.forward * speed;
+        rb.velocity = transform.forward * stat.speed;
+        explode = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = transform.forward * speed;
+        if (explode)
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0f)
+            {
+                shoot.SpawnAttack(transform.position, transform.rotation);
+                gameObject.SetActive(false);
+            }
+        }
+
+        rb.velocity = transform.forward * stat.speed;
         //transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
@@ -37,6 +50,16 @@ public class DrillMove : EnemyTemplate
     {
         transform.localScale = Vector3.zero;
         transform.DOScale(Vector3.one, 1f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        explode = true;
+        timer = stat.detonTime;
+        /*if (collision.transform.tag != "Enemy")
+        {
+
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)

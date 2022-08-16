@@ -47,6 +47,7 @@ public class PlayerStats : ScriptableObject
 
     [Space(10), Header("Wall Climb")]
     public Vector2 wallClimbJump;
+    public float wallClimbSpeedAdd;
     public float wallClimpCooldown;
 
     [Space(10), Header("Gravity")]

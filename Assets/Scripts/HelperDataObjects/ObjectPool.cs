@@ -59,4 +59,10 @@ public class ObjectPool
             pool[i].SetActive(false);
         }
     }
+
+    public void Reset()
+    {
+        pool = new List<GameObject>();
+        AddObjects();
+    }
 }

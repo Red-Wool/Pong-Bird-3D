@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfdabe5b6bfef3b4ab458b9f22be8ea7, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: c09662f4bd95fda4b8b31c9e06952863, type: 3}
+  m_Name: Stamina
   m_EditorClassIdentifier: 
-  enemy:
-  - enemyPrefab:
-      poolObject: {fileID: 9174426620100863863, guid: dba7e6ba943382e4fbd5a39537a43ae0,
-        type: 3}
-      initAmount: 30
-    weight: 5
-    type: 0
+  value: 5
