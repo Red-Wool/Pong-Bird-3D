@@ -16,6 +16,14 @@ public class PaddleObject : MonoBehaviour
     [SerializeField] private float distFromCenter;
     [SerializeField] private Vector2 yRange;
 
+    [SerializeField] private Vector3 respawnPoint;
+
+    [SerializeField] private ParticleSystem paddleHit;
+
+    [SerializeField] private Transform paddleHintTrail;
+    [SerializeField] private float paddleHintSpeed;
+
+
     private bool hit;
 
     private BoxCollider hitbox;
@@ -26,6 +34,14 @@ public class PaddleObject : MonoBehaviour
         hitbox = GetComponent<BoxCollider>();
         currentAngle = 0;
         hit = false;
+
+        PlayerMove.death.AddListener(ResetPaddle);
+    }
+
+    private void Update()
+    {
+        paddleHintTrail.LookAt(transform);
+        paddleHintTrail.Translate((transform.position - paddleHintTrail.position).normalized * paddleHintSpeed * Time.deltaTime, Space.World);
     }
 
     private void MoveAcross()
@@ -44,9 +60,38 @@ public class PaddleObject : MonoBehaviour
         MoveAcross();
     }*/
 
+    public void ResetPaddle()
+    {
+        StartCoroutine(ResetAnimation());
+    }
+
+    public IEnumerator ResetAnimation()
+    {
+        yield return new WaitForSeconds(2f);
+
+        transform.DOScale(Vector3.zero, .2f);
+
+        yield return new WaitForSeconds(.2f);
+
+        
+        transform.DOScale(size, .2f);
+
+        transform.position = respawnPoint;
+        transform.rotation = Quaternion.identity;
+
+        paddleHintTrail.position = transform.position;
+    }
+
+
     public IEnumerator MoveAnimation()
     {
         hit = true;
+
+        paddleHit.transform.position = transform.position;
+        paddleHit.Play();
+
+        paddleHintTrail.position = transform.position;
+
         PointScored.Invoke();
 
         yield return new WaitForSeconds(.05f);
@@ -55,6 +100,7 @@ public class PaddleObject : MonoBehaviour
 
         yield return new WaitForSeconds(.2f);
         MoveAcross();
+        
 
         transform.DOScale(size, .2f);
         hit = false;

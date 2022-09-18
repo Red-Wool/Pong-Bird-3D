@@ -9,6 +9,7 @@ public class PlayerEffect : MonoBehaviour
     [SerializeField] private Controls control;
 
     [SerializeField] ParticleSystem flap; public ParticleSystem Flap { get { return flap; } }
+    [SerializeField] ParticleSystem noFeather; public ParticleSystem NoFeather { get { return noFeather; } }
     [SerializeField] ParticleSystem glide; public ParticleSystem Glide { get { return glide; } }
     [SerializeField] ParticleSystem line; public ParticleSystem Line { get { return line; } }
     // Start is called before the first frame update
@@ -20,10 +21,10 @@ public class PlayerEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(control.jump))
+        /*if (Input.GetKeyDown(control.jump))
         {
             flap.Play();
-        }
+        }*/
 
         if (Input.GetKeyDown(control.dash))
         {

@@ -15,4 +15,13 @@ public class CloudTouch : MonoBehaviour
     {
         
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.tag == "Player")
+        {
+            other.GetComponent<PlayerMove>().TouchCloud();
+        }
+        //int event
+    }
 }

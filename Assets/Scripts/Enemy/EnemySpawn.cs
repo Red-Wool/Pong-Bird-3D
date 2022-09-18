@@ -7,13 +7,8 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] private EnemyDataTable enemies;
     [SerializeField] private GameObject player;
 
-    [SerializeField] private float enemySpawnTick;
     [SerializeField] private float timer;
     private float nextTick;
-
-    [SerializeField] private float timeScale;
-    [SerializeField] private float pointBaseScale;
-    [SerializeField] private float pointTimeMult;
 
     private int enemyIndex;
     // Start is called before the first frame update
@@ -21,6 +16,7 @@ public class EnemySpawn : MonoBehaviour
     {
 
         PaddleObject.PointScored += ResetTimer;
+        PlayerMove.death.AddListener(ResetTimer);
 
         foreach(EnemyInfo e in enemies.enemy)
         {
@@ -35,23 +31,28 @@ public class EnemySpawn : MonoBehaviour
     public void ResetTimer()
     {
         timer = 0;
+        nextTick = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > nextTick)
+        if (GameManager.GameStart)
         {
-            nextTick += enemySpawnTick;
-            SummonEnemies();
+            timer += Time.deltaTime;
+            if (timer > nextTick)
+            {
+                nextTick += enemies.enemySpawnTick;
+                SummonEnemies();
+            }
         }
+        
     }
 
     public void SummonEnemies()
     {
-        float dangerLvl = timeScale * (1 + pointTimeMult * GameManager.Score) * timer + GameManager.Score * pointBaseScale;
-        int enemyPts = Mathf.Clamp((int)Random.Range(dangerLvl * 0.2f, dangerLvl * 0.6f), 0, 50);
+        float dangerLvl = Mathf.Min(enemies.timeScale * timer, Mathf.Clamp(enemies.timeScalePointMult * GameManager.Score,enemies.timeScaleStart,enemies.timeScaleCap)) + Mathf.Min(GameManager.Score * enemies.pointBaseScale, 100);
+        int enemyPts = Mathf.Clamp((int)Random.Range(dangerLvl * 0.2f, dangerLvl * 0.6f), 0, 30);
 
 
         for (int i = 0; i < enemyPts; i++)
@@ -64,7 +65,7 @@ public class EnemySpawn : MonoBehaviour
                 case EnemyType.Perimeter:
                     spawnLocation = Random.onUnitSphere;
                     spawnLocation.y = 0f;
-                    spawnLocation = spawnLocation.normalized * 178 + Vector3.up * Random.Range(-5f, 30f);
+                    spawnLocation = spawnLocation.normalized * 178 + Vector3.up * Random.Range(-5f, 50f);
                     break;
                 case EnemyType.Ground:
                     spawnLocation = Random.onUnitSphere * 120;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerDisplay : MonoBehaviour
 {
@@ -10,9 +11,13 @@ public class PlayerDisplay : MonoBehaviour
     [SerializeField] private StoredValue hp;
     [SerializeField] private StoredValue jump;
     [SerializeField] private StoredValue stamina;
+    [SerializeField] private StoredValue coin;
 
     [SerializeField] private Image staminaBar;
     [SerializeField] private GameObject[] feathers;
+    [SerializeField] private TMP_Text scoreDisplay;
+    [SerializeField] private TMP_Text hpDisplay;
+    [SerializeField] private TMP_Text coinDisplay;
     [SerializeField] private float barSpeed;
 
     // Start is called before the first frame update
@@ -25,6 +30,10 @@ public class PlayerDisplay : MonoBehaviour
     void Update()
     {
         staminaBar.fillAmount = Mathf.Lerp(staminaBar.fillAmount, stamina.value / stat.maxStamina, barSpeed * Time.deltaTime);
+
+        scoreDisplay.text = GameManager.Score.ToString();
+        hpDisplay.text = "HP: " + hp.value;
+        coinDisplay.text = "Yellow lemonade: " + coin.value;
 
         for (int i = 0; i < 3; i++)
         {

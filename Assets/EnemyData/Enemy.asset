@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdabe5b6bfef3b4ab458b9f22be8ea7, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  enemySpawnTick: 2
+  timeScale: 0.5
+  timeScaleStart: 5
+  timeScalePointMult: 1
+  timeScaleCap: 50
+  pointBaseScale: 1
+  enemy:
+  - enemyPrefab:
+      poolObject: {fileID: 9174426620100863863, guid: dba7e6ba943382e4fbd5a39537a43ae0,
+        type: 3}
+      initAmount: 30
+    weight: 10
+    type: 0
+  - enemyPrefab:
+      poolObject: {fileID: 3458926040805144565, guid: 9a00cc688b2caef4798dca536590ce6c,
+        type: 3}
+      initAmount: 30
+    weight: 2
+    type: 0
+  - enemyPrefab:
+      poolObject: {fileID: 3458926040805144565, guid: 9a00cc688b2caef4798dca536590ce6c,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 0
+  - enemyPrefab:
+      poolObject: {fileID: 8588249756642459149, guid: ea924157e8a77ea4bbeda312019e4db1,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 1
+  - enemyPrefab:
+      poolObject: {fileID: 8588249756642459149, guid: ea924157e8a77ea4bbeda312019e4db1,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 1
+  - enemyPrefab:
+      poolObject: {fileID: 9174426620100863863, guid: dba7e6ba943382e4fbd5a39537a43ae0,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 0
+  - enemyPrefab:
+      poolObject: {fileID: 964639795603885331, guid: 81d71d5be3e63de4aae97e52f561b4ab,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 0
+  - enemyPrefab:
+      poolObject: {fileID: 3458926040805144565, guid: 9a00cc688b2caef4798dca536590ce6c,
+        type: 3}
+      initAmount: 30
+    weight: 2
+    type: 0
+  - enemyPrefab:
+      poolObject: {fileID: 8588249756642459149, guid: ea924157e8a77ea4bbeda312019e4db1,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 1
+  - enemyPrefab:
+      poolObject: {fileID: 964639795603885331, guid: 81d71d5be3e63de4aae97e52f561b4ab,
+        type: 3}
+      initAmount: 30
+    weight: 1
+    type: 0
+  attacks:
+  - {fileID: 11400000, guid: 1bce292c671873049a5413de4287b1d6, type: 2}
+  - {fileID: 11400000, guid: ea14906521b4d494abe739c1d39ee510, type: 2}
+  - {fileID: 11400000, guid: 71764e56a0395b4469956b6ca94d5148, type: 2}
+  - {fileID: 11400000, guid: cfef892278d82c7438c3cf68eacfda41, type: 2}
+  - {fileID: 11400000, guid: cbf14fe9f49ed8c4ea3c052326f3a5a5, type: 2}
+  - {fileID: 11400000, guid: 62c43f9c6091d7441aba84e6f4640b14, type: 2}
+  - {fileID: 11400000, guid: 1339a7a6d444b3f46a3d3d9bffeb27df, type: 2}
+  - {fileID: 11400000, guid: 65cce51a5a00c4440b88fc1f1f5bd652, type: 2}

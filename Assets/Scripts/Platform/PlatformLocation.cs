@@ -61,6 +61,8 @@ public class PlatformLocation : MonoBehaviour
             }
         }
 
+        currentObj.transform.rotation = Quaternion.Euler(0,Random.Range(0, 4) * 90f,0);
+
         currentObj.transform.position = transform.position + Vector3.down * 100;
         currentObj.transform.DOMove(transform.position + UtilFunctions.RandomV3(platform.randomSpawnRange), Random.Range(1f, 3f)).SetEase(Ease.InOutQuint);
 

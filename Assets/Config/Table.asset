@@ -14,17 +14,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   table:
   - prefab:
-      poolObject: {fileID: 1888939002548503880, guid: 2b7c56048c263074680da09175969bdc,
+      poolObject: {fileID: 6097735900688313292, guid: 8b869167cef8e784984f9fe07a1db3b1,
         type: 3}
       initAmount: 30
-    randomSpawnRange: {x: 10, y: 10, z: 10}
+    randomSpawnRange: {x: 10, y: 15, z: 10}
   - prefab:
-      poolObject: {fileID: 8191603240827491992, guid: bac8e0de71ba66846a1093537bed22eb,
+      poolObject: {fileID: 6610903867315111914, guid: a534c0b3b06bf904d935b4a3ada5b7d7,
         type: 3}
       initAmount: 30
     randomSpawnRange: {x: 12, y: 2, z: 12}
   - prefab:
-      poolObject: {fileID: 9096790857232973486, guid: b2b63e50d340cf24caf96d47b21b9820,
+      poolObject: {fileID: 7854913668037566576, guid: e3fcc8793de9cc74f9923928e2071323,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 1656611905733028240, guid: ced80e400479f764392fa7083e7923f7,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 8017003862769731722, guid: 3d27809a32b6f6745bc69ca1138b61e9,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 8719893845287375091, guid: dbb6d1c9cf869f04c9efe3fe389512f9,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 16, y: 16, z: 16}
+  - prefab:
+      poolObject: {fileID: 8922013130639007173, guid: c154d948e5d986146b676ff36efe6eb1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 1200040825440705694, guid: 4458d6f16104c524f820d6dbcb8e5aa8,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 9175375817061736412, guid: 0e39b7624dd3bb14898b2947f3739fa1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 7322735067165431156, guid: 21669234d95d4244aadf1c4dbaac6ea1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 7552982217226608531, guid: 165e60caffe6bd747bee2c43a68e5e84,
         type: 3}
       initAmount: 30
     randomSpawnRange: {x: 12, y: 8, z: 12}

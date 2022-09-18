@@ -18,3 +18,4 @@ MonoBehaviour:
   right: 0
   dash: 323
   dive: 304
+  interact: 101

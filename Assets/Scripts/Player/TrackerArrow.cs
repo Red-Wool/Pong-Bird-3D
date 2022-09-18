@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrackerArrow : MonoBehaviour
 {
+    [SerializeField] private Controls control;
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject follow;
     [SerializeField] private GameObject target;
@@ -31,7 +32,7 @@ public class TrackerArrow : MonoBehaviour
         timer = Mathf.Clamp(timer + ((isOn ? 1 : -1) * Time.deltaTime), 0f, 1f);
         arrow.transform.localScale = Vector3.one * toggleSize.Evaluate(timer);
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(control.interact))
         {
             ActivateArrow();
         }

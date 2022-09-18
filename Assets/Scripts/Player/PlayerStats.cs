@@ -11,10 +11,14 @@ public class PlayerStats : ScriptableObject
 
     public float maxStamina;
     [Space(10)]
+    public float invinTime;
+    [Space(10)]
     public float staminaGroundRegain;
     public float staminaFlapRegain;
     public float staminaGrantRegain;
-
+    public float staminaGrantGroundDashRegain;
+    public float staminaTouchCloud;
+    [Space(10)]
     public float staminaDashCost;
     public float staminaRaiseCost;
     public float staminaRaiseRate;
@@ -28,6 +32,10 @@ public class PlayerStats : ScriptableObject
     [Space(10),Header("Jump")]
     public float jump;
     public float jumpCooldown;
+
+    public float noFeatherJump;
+    public float noFeatherJumpSlow;
+    public float noFeatherJumpCooldown;
 
     public float holdJump;
     public float holdJumpCap;
@@ -56,7 +64,9 @@ public class PlayerStats : ScriptableObject
 
     [Space(10),Header("Dash")]
     public float dashPower;
+    public float dashInputPower;
     public float dashTime;
+    public float dashRingTime;
 
     [Space(10)]
     public float dashGravity;
@@ -85,5 +95,8 @@ public class PlayerStats : ScriptableObject
 
     public float dashVertVelScale;
     public float dashCancelJumpScale;
-    
+
+    [Space(10), Header("Time Effects")]
+    public float grantStopTime;
+
 }

@@ -13,6 +13,8 @@ public class DrillMove : EnemyTemplate
     private float timer;
     private Rigidbody rb;
 
+    private float shootTime;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,6 +44,24 @@ public class DrillMove : EnemyTemplate
             }
         }
 
+        if (stat.isHoming)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Target.transform.position - transform.position), Time.deltaTime * stat.homeStrength);
+        }
+
+        if (stat.isShoot)
+        {
+            shootTime -= Time.deltaTime;
+
+            if (shootTime < 0f)
+            {
+                stat.shootAttack.SpawnAttack(transform.position, transform.rotation);
+                shootTime = stat.shootRate;
+            }
+        }
+
+        //transform.Rotate(transform.forward, stat.spin * Time.time);
+
         rb.velocity = transform.forward * stat.speed;
         //transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
@@ -54,8 +74,15 @@ public class DrillMove : EnemyTemplate
 
     private void OnCollisionEnter(Collision collision)
     {
-        explode = true;
-        timer = stat.detonTime;
+        if (!explode)
+        {
+            if (collision.transform.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerMove>().Grant();
+            }
+            explode = true;
+            timer = stat.detonTime;
+        }
         /*if (collision.transform.tag != "Enemy")
         {
 

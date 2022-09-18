@@ -24,7 +24,7 @@ public class EnemyBulletAttack : ScriptableObject
             ParticleSystem p = o.GetComponent<ParticleSystem>();
             if (!p.isPlaying)
             {
-                Debug.Log("Bang!");
+                //Debug.Log("Bang!");
                 o.transform.position = pos;
                 o.transform.rotation = rot;
 

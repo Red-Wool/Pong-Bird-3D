@@ -31,12 +31,12 @@ public class PlatformSpawner : MonoBehaviour
                 {
                     p.Spawn(prefab.table[Random.Range(0, prefab.table.Length)]);
                 }
-                else if (Random.Range(0f, 1f) < .6f)
+                else if (Random.Range(0f, 1f) < .5f)
                 {
                     p.Remove();
                 }
             }
-            else if (Random.Range(0f, 1f) < .15f)
+            else if (Random.Range(0f, 1f) < .2f)
             {
                 p.Spawn(prefab.table[Random.Range(0, prefab.table.Length)]);
             }
