@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerMove player;
     [SerializeField] private PaddleObject paddle;
     [SerializeField] private GameObject spawnPlatform;
+
     private static bool gameStart; public static bool GameStart { get { return gameStart; } }
     private static int score; public static int Score { get { return score; } }
 

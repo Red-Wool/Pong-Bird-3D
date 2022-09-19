@@ -66,3 +66,4 @@ MonoBehaviour:
   dashMaxMoveCap: 30
   dashVertVelScale: 0.1
   dashCancelJumpScale: 0.5
+  grantStopTime: 0.2
