@@ -15,4 +15,9 @@ public class Shop : InteractObject
     {
         
     }
+
+    public override void Interact()
+    {
+        Debug.Log("Shopping time");
+    }
 }

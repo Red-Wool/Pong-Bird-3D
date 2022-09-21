@@ -4,8 +4,5 @@ using UnityEngine;
 
 public abstract class InteractObject : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
+    public abstract void Interact();
 }

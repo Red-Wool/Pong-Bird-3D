@@ -8,6 +8,10 @@ public class ControlBubble : MonoBehaviour
 {
     [SerializeField] private GameObject player;
 
+    [SerializeField] private AnimationCurve bubbleSmooth;
+    [SerializeField] private float smoothSpeed;
+    private float smoothTime;
+
     [SerializeField] private GameObject bubble;
     [SerializeField] private TMP_Text text;
 
@@ -29,13 +33,20 @@ public class ControlBubble : MonoBehaviour
 
         if (currentInter)
         {
-            
+            smoothTime += Time.deltaTime * smoothSpeed;
             bubble.transform.position = cam.WorldToScreenPoint(currentInter.transform.position);
             if (Input.GetKeyDown(control.interact))
             {
-
+                currentInter.Interact();
             }
         }
+        else
+        {
+            smoothTime -= Time.deltaTime * smoothSpeed;
+        }
+
+        smoothTime = Mathf.Clamp01(smoothTime);
+        bubble.transform.localScale = Vector3.one * bubbleSmooth.Evaluate(smoothTime);
     }
 
     private void OnTriggerStay(Collider other)
@@ -51,7 +62,7 @@ public class ControlBubble : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (currentInter == other.gameObject)
+        if (currentInter != null && currentInter.gameObject == other.gameObject)
         {
             currentInter = null;
         }   

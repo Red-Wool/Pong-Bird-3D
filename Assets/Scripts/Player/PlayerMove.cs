@@ -246,6 +246,9 @@ public class PlayerMove : MonoBehaviour
         {
             if (!grounded || !touching)
                 dashDirection.y += stats.gravityScale * Time.deltaTime * -stats.dashGravity;
+            if (grounded)
+                dashDirection.y = Mathf.Max(dashDirection.y, -stats.diveMaxDownGroundSpd);
+
             dashDirection.x += input.x * stats.dashMoveScale * Time.deltaTime;
             dashDirection.z += input.z * stats.dashMoveScale * Time.deltaTime;
 
