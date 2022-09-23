@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour
     private bool isDash; public bool IsDash { get { return isDash; } }
     private Vector3 move; public Vector3 Move { get { return move; } }
 
-    private bool isDead;
+    private bool canMove;
 
     private bool isLate;
     private Vector3 lateMove;
@@ -63,6 +63,8 @@ public class PlayerMove : MonoBehaviour
         music = GetComponent<PlayerMusic>();
         hitBox = GetComponent<SphereCollider>();
 
+        canMove = true;
+
         hp.value = stats.maxHP;
         stamina.value = stats.maxStamina;
         jump.value = stats.maxJump;
@@ -91,7 +93,7 @@ public class PlayerMove : MonoBehaviour
         //hitBox.center = Vector3.up * (touching ? stats.groundSize : stats.airSize);
 
         //Movement
-        if (!isDead)
+        if (canMove)
         {
             MovePlayer();
         }
@@ -263,7 +265,7 @@ public class PlayerMove : MonoBehaviour
             if (tempXZ.magnitude > stats.dashMaxSpeed) // if Max speed, slow down
             {
 
-                tempXZ = tempXZ.normalized * stats.dashMaxSpeed;
+                tempXZ = tempXZ.normalized * Mathf.Lerp(tempXZ.magnitude, stats.dashMaxSpeed, Time.deltaTime * stats.dashMaxDecay);
                 dashDirection.x = tempXZ.x;
                 dashDirection.z = tempXZ.y;
             }
@@ -311,7 +313,7 @@ public class PlayerMove : MonoBehaviour
     public void Death()
     {
         hp.value = 0;
-        if (!isDead) 
+        if (canMove) 
             StartCoroutine(DeathAnimation());
     }
 
@@ -319,7 +321,7 @@ public class PlayerMove : MonoBehaviour
     {
         TimeManager.Instance.TwoStepPause(0, .3f, .4f, 2f);
 
-        isDead = true;
+        canMove = false;
         Vector3 temp = rb.velocity;
         temp *= 1.5f;
         temp.y = Mathf.Clamp(temp.y, 5f, 30f) + Random.Range(20f, 30f);
@@ -327,15 +329,30 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(2f);
         death.Invoke();
         yield return new WaitForSeconds(2f);
-        isDead = false;
+        canMove = true;
 
         transform.position = respawnPoint;
         hp.value = stats.maxHP;
     }
 
+    public void Stop()
+    {
+        isDash = false;
+        rb.velocity = rb.velocity.normalized * Mathf.Min(rb.velocity.magnitude,.5f);
+        canMove = false;
+
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Resume()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        canMove = true;
+    }
+
     public void Damage()
     {
-        if (invinTime < 0 && !isDead)
+        if (invinTime < 0 && canMove)
         {
             Debug.Log("Ow");
             hp.value--;
@@ -364,6 +381,10 @@ public class PlayerMove : MonoBehaviour
     {
         Debug.Log("Ring it up");
         DashStart(stats.dashRingTime);
+
+        move *= stats.ringSpeedMult;
+        dashDirection *= stats.ringSpeedMult;
+        ChangeStamina(stats.ringStaminaRegain);
     }
 
     public void TouchCloud()

@@ -65,6 +65,9 @@ MonoBehaviour:
   dashRaiseJumpBoost: 5
   dashMaxSpeed: 45
   dashMaxMoveCap: 30
+  dashMaxDecay: 10
   dashVertVelScale: 0.1
   dashCancelJumpScale: 0.5
+  ringStaminaRegain: 2
+  ringSpeedMult: 1.5
   grantStopTime: 0.2

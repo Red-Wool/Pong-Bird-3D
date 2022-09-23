@@ -415,4 +415,4 @@ MonoBehaviour:
   laser: {fileID: 11400000, guid: cfef892278d82c7438c3cf68eacfda41, type: 2}
   laserOut: {fileID: 11400000, guid: cbf14fe9f49ed8c4ea3c052326f3a5a5, type: 2}
   final: {fileID: 11400000, guid: 71764e56a0395b4469956b6ca94d5148, type: 2}
-  shootTime: 10
+  shootTime: 6

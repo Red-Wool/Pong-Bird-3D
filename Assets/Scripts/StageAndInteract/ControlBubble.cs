@@ -6,7 +6,7 @@ using TMPro;
 
 public class ControlBubble : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [SerializeField] private PlayerMove player;
 
     [SerializeField] private AnimationCurve bubbleSmooth;
     [SerializeField] private float smoothSpeed;
@@ -37,7 +37,7 @@ public class ControlBubble : MonoBehaviour
             bubble.transform.position = cam.WorldToScreenPoint(currentInter.transform.position);
             if (Input.GetKeyDown(control.interact))
             {
-                currentInter.Interact();
+                currentInter.Interact(player);
             }
         }
         else

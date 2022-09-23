@@ -93,9 +93,14 @@ public class PlayerStats : ScriptableObject
 
     public float dashMaxSpeed;
     public float dashMaxMoveCap;
+    public float dashMaxDecay;
 
     public float dashVertVelScale;
     public float dashCancelJumpScale;
+
+    [Space(10), Header("Ring Effects")]
+    public float ringStaminaRegain;
+    public float ringSpeedMult;
 
     [Space(10), Header("Time Effects")]
     public float grantStopTime;

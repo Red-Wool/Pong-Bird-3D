@@ -17,7 +17,7 @@ MonoBehaviour:
   timeScaleStart: 5
   timeScalePointMult: 1
   timeScaleCap: 50
-  pointBaseScale: 1
+  pointBaseScale: 0.6
   enemy:
   - enemyPrefab:
       poolObject: {fileID: 9174426620100863863, guid: dba7e6ba943382e4fbd5a39537a43ae0,
