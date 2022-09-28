@@ -9,6 +9,8 @@ public class PaddleObject : MonoBehaviour
     public delegate void Trigger();
     public static event Trigger PointScored;
 
+    [SerializeField] private CameraControl cam;
+
     [SerializeField] private Vector3 size;
     [SerializeField] private float angleOffset;
     private float currentAngle;
@@ -46,6 +48,8 @@ public class PaddleObject : MonoBehaviour
 
     private void MoveAcross()
     {
+        
+
         //Debug.Log(Random.Range(-angleOffset, angleOffset));
         currentAngle += 180f + Random.Range(-angleOffset, angleOffset);
         float angle = currentAngle * Mathf.Deg2Rad;
@@ -87,6 +91,8 @@ public class PaddleObject : MonoBehaviour
     {
         hit = true;
 
+        cam.PaddleHitAdjust(-currentAngle-90);
+
         paddleHit.transform.position = transform.position;
         paddleHit.Play();
 
@@ -95,6 +101,7 @@ public class PaddleObject : MonoBehaviour
         PointScored.Invoke();
 
         yield return new WaitForSeconds(.05f);
+
 
         transform.DOScale(Vector3.zero, .2f);
 

@@ -37,8 +37,6 @@ public class ShopCreator : EditorWindow
                 
                 if (item.foldout)
                 {
-                   
-
                     item = DisplayShopItem(item);
                 }
 
@@ -53,7 +51,8 @@ public class ShopCreator : EditorWindow
     public ItemData DisplayShopItem(ItemData item)
     {
         GUILayout.Label(item.itemName, EditorStyles.boldLabel);
-        //Type
+        //GUILayout.Space(15);
+        //item.script = (ItemScript)EditorGUILayout.ObjectField
         GUILayout.Space(15);
         item.type = (ItemType)EditorGUILayout.EnumPopup("Item Type", item.type);
 

@@ -52,8 +52,8 @@ MonoBehaviour:
   dashTime: 0.2
   dashRingTime: 1
   dashGravity: 0.06
-  dashMoveScale: 1
-  dashMaxMoveScale: 2
+  dashMoveScale: 1.5
+  dashMaxMoveScale: 2.5
   dashGroundLand: {x: 0, y: 0}
   dashGroundJump: {x: 25, y: 3}
   dashRaiseTime: 0.5
@@ -68,6 +68,6 @@ MonoBehaviour:
   dashMaxDecay: 10
   dashVertVelScale: 0.1
   dashCancelJumpScale: 0.5
-  ringStaminaRegain: 2
-  ringSpeedMult: 1.5
+  ringStaminaRegain: 3
+  ringSpeedMult: 1.8
   grantStopTime: 0.2

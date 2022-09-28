@@ -6,10 +6,11 @@ using UnityEngine;
 public class StoreItem
 {
     public ItemData data;
+    
 
-    public virtual void Use()
+    public void Use(GameModify mod)
     {
-        return;
+        data.script.Use(mod);
     }
 }
 
@@ -18,7 +19,9 @@ public struct ItemData
 {
     #if UNITY_EDITOR
     [HideInInspector] public bool foldout;
-    #endif
+#endif
+
+    public ItemScript script;
 
     public ItemType type;
     

@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class RingRocketMove : MonoBehaviour
 {
+    [SerializeField] private EnemyBulletAttack ringGet;
+
     [SerializeField] private ObjectPool ring;
     [SerializeField] private GameObject player;
     [SerializeField] private float detect;
@@ -36,6 +38,7 @@ public class RingRocketMove : MonoBehaviour
         PaddleObject.PointScored += Reset;
 
         ring.AddObjects();
+        ringGet.Reset();
 
         rb = GetComponent<Rigidbody>();
     }

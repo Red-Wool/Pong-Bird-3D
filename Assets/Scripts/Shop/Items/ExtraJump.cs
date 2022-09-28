@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExtraJump : MonoBehaviour
+[CreateAssetMenu]
+public class ExtraJump : ItemScript
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Use(GameModify mod)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        mod.moveStat.maxJump += 1;
     }
 }

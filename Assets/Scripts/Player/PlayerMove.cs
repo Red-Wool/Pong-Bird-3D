@@ -505,7 +505,7 @@ public class PlayerMove : MonoBehaviour
             else
             {
                 Pong();
-                invinTime = 0.5f;
+                invinTime = 1f;
 
 
             }

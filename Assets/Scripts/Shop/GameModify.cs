@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameModify : MonoBehaviour
 {
+    public PlayerStats moveStat;
     // Start is called before the first frame update
     void Start()
     {
