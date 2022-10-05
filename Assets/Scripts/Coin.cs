@@ -25,7 +25,7 @@ public class Coin : MonoBehaviour
         hitBox = GetComponent<Collider>();
         hitBox.enabled = true;
         rb = GetComponent<Rigidbody>();
-        rb.velocity = UtilFunctions.RandomV3(new Vector3(10, 5, 10) + Vector3.up * 15);
+        rb.velocity = UtilFunctions.RandomV3(new Vector3(10, 2, 10) + Vector3.up * 17);
 
         transform.localScale = Vector3.one;
         transform.DOScale(1, 1f);

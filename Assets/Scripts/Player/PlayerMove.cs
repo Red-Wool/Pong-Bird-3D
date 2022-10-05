@@ -148,7 +148,7 @@ public class PlayerMove : MonoBehaviour
                 move.y = stats.jump + ((grounded ? stats.diveGroundJump.y : stats.diveAirJump.y) * diveTime);
                 move += UtilFunctions.MagnitudeChange(input, (grounded ? stats.diveGroundJump.x : stats.diveAirJump.x) * diveTime);
 
-                diveTime = 0f;
+                //diveTime = 0f;
             }
 
             if (isDash)
@@ -247,7 +247,7 @@ public class PlayerMove : MonoBehaviour
         else if (isDash) //Dash Mode
         {
             if (!grounded || !touching)
-                dashDirection.y += stats.gravityScale * Time.deltaTime * -stats.dashGravity;
+                dashDirection.y -= stats.gravityScale * Time.deltaTime * stats.dashGravity;
             if (grounded)
                 dashDirection.y = Mathf.Max(dashDirection.y, -stats.diveMaxDownGroundSpd);
 
@@ -430,9 +430,16 @@ public class PlayerMove : MonoBehaviour
         wallTime = stats.wallClimpCooldown;
 
         effect.Flap.Play();
-        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x) + 
+        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x + stats.diveWallJump.x * diveTime) + 
             UtilFunctions.MagnitudeChange(move, UtilFunctions.Magnitude2D(move.x,move.z) * stats.wallClimbSpeedAdd);
-        return new Vector3(backDist.x, stats.wallClimbJump.y, backDist.z);
+
+        backDist.y = stats.wallClimbJump.y + stats.diveWallJump.y * diveTime;
+
+        diveTime = 0f;
+
+        return backDist;
+
+        
     }
 
     public void Launch(Vector3 dir)

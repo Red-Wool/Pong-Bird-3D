@@ -47,6 +47,7 @@ public class PlayerStats : ScriptableObject
     public Vector2 diveGroundJump;
     public Vector2 diveGroundDash;
     public Vector2 diveAirJump;
+    public Vector2 diveWallJump;
     public float diveMaxDownGroundSpd;
     
 
