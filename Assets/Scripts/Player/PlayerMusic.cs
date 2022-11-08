@@ -28,7 +28,7 @@ public class PlayerMusic : MonoBehaviour
     void Update()
     {
 
-        flight.volume = Mathf.Lerp(flight.volume, (move.IsDash) ? 1 : 0, (move.IsDash ? flightSmInSpd : flightSmOutSpd) * Time.deltaTime);
+        flight.volume = Mathf.Lerp(flight.volume, (move.IsDash && move.HasStamina) ? 1 : 0, (move.IsDash && move.HasStamina ? flightSmInSpd : flightSmOutSpd) * Time.deltaTime);
     }
 
     public void JumpSound(int v)

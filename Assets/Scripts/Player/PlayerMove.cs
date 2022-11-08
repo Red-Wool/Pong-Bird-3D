@@ -27,6 +27,7 @@ public class PlayerMove : MonoBehaviour
     private SphereCollider hitBox;
 
     private bool isDash; public bool IsDash { get { return isDash; } }
+    private bool isDive;
     private Vector3 move; public Vector3 Move { get { return move; } }
 
     private bool canMove;
@@ -37,12 +38,22 @@ public class PlayerMove : MonoBehaviour
     private float dashRaiseTime;
     private float jumpTime;
     private float noFeatherTime;
+    private float noSpeedDecayTime;
     private float wallTime;
+    private float pingPongTime;
     private float diveTime;
+    private float diveBuffer;
     private float invinTime;
 
     private bool touching;
     private bool grounded;
+
+
+    private bool canPingPong;
+    private int pingPongStreak;
+    private Vector3 curPingPongAngle;
+
+    private bool hasStamina; public bool HasStamina { get { return hasStamina; } }
     private bool holdingJump;
     private Vector3 input;
     private Vector3 dashDirection;
@@ -76,7 +87,9 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         grounded = CheckGrounded();
+        hasStamina = stamina.value > 0f;
         holdingJump = Input.GetKey(control.jump);
+        isDive = Input.GetKey(control.dive);
 
         if (grounded)
         {
@@ -110,8 +123,12 @@ public class PlayerMove : MonoBehaviour
         if (input.magnitude > 1f) { input = input.normalized; }
         input = Quaternion.Euler(0f, Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0f) * Vector3.forward * stats.speed * input.magnitude;
 
-        move.x = Mathf.Lerp(move.x, input.x, Time.deltaTime * stats.speedDecay);// + Mathf.Lerp(move.x, 0f, Time.deltaTime * stats.speedDecay);
-        move.z = Mathf.Lerp(move.z, input.z, Time.deltaTime * stats.speedDecay);// + Mathf.Lerp(move.z, 0f, Time.deltaTime * stats.speedDecay);
+        if (noSpeedDecayTime <= 0f)
+        {
+            move.x = Mathf.Lerp(move.x, input.x, Time.deltaTime * stats.speedDecay);// + Mathf.Lerp(move.x, 0f, Time.deltaTime * stats.speedDecay);
+            move.z = Mathf.Lerp(move.z, input.z, Time.deltaTime * stats.speedDecay);// + Mathf.Lerp(move.z, 0f, Time.deltaTime * stats.speedDecay);
+        }
+        
 
         //More Gravity when moving down
         if (!isDash && move.y < 0f) 
@@ -123,6 +140,7 @@ public class PlayerMove : MonoBehaviour
         jumpTime -= Time.deltaTime;
         noFeatherTime -= Time.deltaTime;
         invinTime -= Time.deltaTime;
+        noSpeedDecayTime -= Time.deltaTime;
 
         //Jumping
         if (Input.GetKeyDown(control.jump)) 
@@ -145,8 +163,8 @@ public class PlayerMove : MonoBehaviour
                 }
                 //sfx.Play();
                 effect.Flap.Play();
-                move.y = stats.jump + ((grounded ? stats.diveGroundJump.y : stats.diveAirJump.y) * diveTime);
-                move += UtilFunctions.MagnitudeChange(input, (grounded ? stats.diveGroundJump.x : stats.diveAirJump.x) * diveTime);
+                move.y = stats.jump + ((grounded ? stats.diveGroundJump.y : stats.diveAirJump.y) * Mathf.Min(diveTime, stats.diveTimeCap));
+                move += UtilFunctions.MagnitudeChange(input, (grounded ? stats.diveGroundJump.x : stats.diveAirJump.x) * Mathf.Min(diveTime, stats.diveTimeCap));
 
                 //diveTime = 0f;
             }
@@ -194,22 +212,16 @@ public class PlayerMove : MonoBehaviour
             wallTime -= Time.deltaTime;
             if (touching && !grounded && jumpTime < 0f && wallTime < 0f) //WallJump
             {
-                //jump.value = stats.maxJump;
-                //Debug.Log("WallJump");
-
                 move = WallJump(contactPoint);
                 touching = false;
-                /*wallTime = stats.wallClimpCooldown;
-
-                effect.Flap.Play();
-                Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x);
-                move = new Vector3(backDist.x, stats.wallClimbJump.y, backDist.z);*/
             }
 
             if (move.y > stats.holdJumpCap) //Allow Player to jump higher by holding
             {
                 move.y += stats.holdJump * Time.deltaTime;
             }
+
+            
 
             if (isDash && dashRaiseTime > 0f) //Raise player when in dash
             {
@@ -220,7 +232,7 @@ public class PlayerMove : MonoBehaviour
                 dashDirection.x = Mathf.Lerp(dashDirection.x, 0f, Time.deltaTime * stats.dashRaiseSpeedDecay);
                 dashDirection.z = Mathf.Lerp(dashDirection.z, 0f, Time.deltaTime * stats.dashRaiseSpeedDecay);
 
-                dashDirection.y += Time.deltaTime * (stats.dashRaiseSpeedPower * temp.magnitude + stats.dashRaiseBasePower);
+                dashDirection.y += Time.deltaTime * (stats.dashRaiseSpeedPower * temp.magnitude + stats.dashRaiseBasePower) * (hasStamina ? 1f : stats.dashRaiseNoStaminaScale);
                 dashRaiseTime -= Time.deltaTime;
 
                 //Stop dash and give more Up momentum
@@ -228,7 +240,10 @@ public class PlayerMove : MonoBehaviour
                 {
                     isDash = false;
 
-                    move.y += stats.dashRaiseJumpBoost;
+                    if (hasStamina)
+                    {
+                        move.y += stats.dashRaiseJumpBoost;
+                    }
                 }
 
                 ChangeStamina(-stats.staminaRaiseRate * Time.deltaTime);
@@ -240,23 +255,24 @@ public class PlayerMove : MonoBehaviour
             dashRaiseTime = -1;
         }
 
-        if (!isDash && Input.GetKeyDown(control.dash) && stamina.value > 0f) //Initiate Dash Mode
+        if (!isDash && Input.GetKeyDown(control.dash)) //Initiate Dash Mode
         {
             DashStart(stats.dashTime);
         }
         else if (isDash) //Dash Mode
         {
             if (!grounded || !touching)
-                dashDirection.y -= stats.gravityScale * Time.deltaTime * stats.dashGravity;
+                dashDirection.y -= stats.gravityScale * Time.deltaTime * (hasStamina ? stats.dashGravity : stats.dashNoStaminaGravity);
             if (grounded)
                 dashDirection.y = Mathf.Max(dashDirection.y, -stats.diveMaxDownGroundSpd);
 
-            dashDirection.x += input.x * stats.dashMoveScale * Time.deltaTime;
-            dashDirection.z += input.z * stats.dashMoveScale * Time.deltaTime;
+            dashDirection.x += input.x * (hasStamina ? stats.dashMoveScale : stats.dashMoveNoStaminaScale) * Time.deltaTime;
+            dashDirection.z += input.z * (hasStamina ? stats.dashMoveScale : stats.dashMoveNoStaminaScale) * Time.deltaTime;
 
             Vector2 tempXZ = new Vector2(dashDirection.x, dashDirection.z);
 
-            if (tempXZ.magnitude > stats.dashMaxMoveCap)
+
+            if (tempXZ.magnitude > stats.dashMaxMoveCap && hasStamina)
             {
                 dashDirection.x += input.x * stats.dashMaxMoveScale * Time.deltaTime;
                 dashDirection.z += input.z * stats.dashMaxMoveScale * Time.deltaTime;
@@ -270,6 +286,13 @@ public class PlayerMove : MonoBehaviour
                 dashDirection.z = tempXZ.y;
             }
 
+            if (isDive)
+            {
+                dashDirection.y -= stats.dashDivePower * Time.deltaTime;
+                Vector3 temp = new Vector3(dashDirection.x, 0, dashDirection.z).normalized;
+                dashDirection += temp * stats.dashDiveSpeedIncrease * Time.deltaTime;
+            }
+
             //No Dash if certain conditions met            
 
             isDash = Input.GetKey(control.dash);
@@ -279,15 +302,23 @@ public class PlayerMove : MonoBehaviour
             move = dashDirection;
         }
 
-        if (Input.GetKey(control.dive))
+        if (isDive)
         {
             move.y -= stats.divePower * Time.deltaTime;
-            dashDirection.y -= stats.divePower * Time.deltaTime;
-            diveTime = Mathf.Min(diveTime + Time.deltaTime, stats.diveTimeCap);
+            
+            diveTime += Time.deltaTime;
         }
         else if (Input.GetKeyUp(control.dive))
         {
-            diveTime = 0f;
+            diveBuffer = stats.diveBuffer;
+        }
+        else if (!isDive && diveBuffer > 0f)
+        {
+            diveBuffer -= Time.deltaTime;
+            if (diveBuffer < 0f)
+            {
+                diveTime = 0f;
+            }
         }
 
         //Move the player
@@ -399,14 +430,14 @@ public class PlayerMove : MonoBehaviour
         if (stamina.value < 0f)
         {
             stamina.value = 0f;
-            move.y += stats.dashRaiseJumpBoost * dashRaiseTime;
-            isDash = false;
+            //move.y += stats.dashRaiseJumpBoost * dashRaiseTime;
+            //isDash = false;
         }
     }
 
     public void DashStart(float time)
     {
-        ChangeStamina(-stats.staminaDashCost);
+        
 
         StartCoroutine(Dash(time));
     }
@@ -416,7 +447,12 @@ public class PlayerMove : MonoBehaviour
 
         isDash = true;
         //extraSpeed = speed * dashPower;
-        dashDirection = new Vector3(move.x, stats.dashVertVelScale * (move.y + 1f), move.z) * stats.dashPower + input * stats.dashInputPower;
+        if (hasStamina)
+            dashDirection = new Vector3(move.x, stats.dashVertVelScale * (move.y + 1f), move.z) * stats.dashPower + input * stats.dashInputPower;
+        else
+            dashDirection = new Vector3(move.x, (move.y > 0f ? move.y * stats.dashVertVelScale : move.y), move.z);
+
+        ChangeStamina(-stats.staminaDashCost);
         yield return new WaitForSeconds(time);
 
         if (!Input.GetKey(control.dash))
@@ -429,17 +465,49 @@ public class PlayerMove : MonoBehaviour
     {
         wallTime = stats.wallClimpCooldown;
 
+        //Ping Pong Action
+        Vector3 backDist = transform.position - contact;
+        backDist.y = 0;
+        backDist = curPingPongAngle.normalized;
+
+        if (pingPongTime > 0f && Mathf.Abs(Vector3.Angle(curPingPongAngle, backDist)) >= stats.pingPongAngleStreakLimit)
+        {
+            canPingPong = true;
+            pingPongStreak = Mathf.Min(pingPongStreak++, stats.pingPongMaxStreak);
+        }
+        Debug.Log(pingPongStreak + " Streak " + Vector3.Angle(curPingPongAngle, backDist));
+
         effect.Flap.Play();
-        Vector3 backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x + stats.diveWallJump.x * diveTime) + 
+        backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x + (diveTime > stats.diveWallChargeTime ? stats.diveWallJump.x : 0)) + 
             UtilFunctions.MagnitudeChange(move, UtilFunctions.Magnitude2D(move.x,move.z) * stats.wallClimbSpeedAdd);
 
-        backDist.y = stats.wallClimbJump.y + stats.diveWallJump.y * diveTime;
+        if (canPingPong)
+        {
+            backDist = UtilFunctions.MagnitudeChange(backDist.normalized + input * stats.pingPongAngleStrength, backDist.magnitude + pingPongStreak * stats.pingPongSpeedStrength);
+        }
 
+        backDist.y = stats.wallClimbJump.y + (diveTime > stats.diveWallChargeTime ? stats.diveWallJump.y : 0);
+
+
+        pingPongTime = stats.pingPongTime;
         diveTime = 0f;
 
         return backDist;
 
         
+    }
+
+    public void InvincibleLaunch(Vector3 dir)
+    {
+        invinTime = 1f;
+        jump.value = stats.maxJump;
+        stamina.value = stats.maxStamina;
+
+        dir.y += Mathf.Abs(move.y);
+
+        noSpeedDecayTime = stats.bossPaddleNoSpeedDecayTime;
+        TimeManager.Instance.MiniPause(0f, .25f);
+        Launch(dir);
     }
 
     public void Launch(Vector3 dir)

@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public abstract class BossTemplate : EnemyTemplate
 {
     protected int phase;
-    protected int finalPhase;
+    [SerializeField] protected int finalPhase;
 
     [SerializeField] protected BossAttack[] attack;
+    [SerializeField] protected BossPaddleContainer[] weakPoints;
 
     public override void Reset(Vector3 pos, GameObject t)
     {
         base.Reset(pos, t);
 
+        EnableContainer(0);
         phase = 0;
     }
 
@@ -23,6 +26,21 @@ public abstract class BossTemplate : EnemyTemplate
         {
             Death();
         }
+        else
+            EnableContainer(phase);
+    }
+
+    public void EnableContainer(int v)
+    {
+        for(int i = 0; i < weakPoints.Length; i++)
+        {
+            if (i == v)
+            {
+                weakPoints[i].Enable(this);
+            }
+            else
+                weakPoints[i].Disable(true);
+        }
     }
 
     public virtual void Tick(float tick)
@@ -30,28 +48,32 @@ public abstract class BossTemplate : EnemyTemplate
         for (int i = 0; i < attack.Length; i++)
         {
             BossAttack a = attack[i];
-            a.time -= tick;
-            if (a.time < 0)
+            if (phase >= a.phase.x && phase <= a.phase.y)
             {
-                a.attackLeft--;
-                if (a.attackLeft <= 0)
+                a.time -= tick;
+                if (a.time < 0)
                 {
-                    a.attackLeft = a.repeatCount;
-                    a.time = a.reload;
-                }
-                else
-                {
-                    a.time = a.repeatInterval;
-                }
+                    a.attackLeft--;
+                    if (a.attackLeft <= 0)
+                    {
+                        a.attackLeft = a.repeatCount;
+                        a.time = a.reload;
+                    }
+                    else
+                    {
+                        a.time = a.repeatInterval;
+                    }
 
-                a.ps.Play();
+                    a.ps.Play();
+                }
+                attack[i] = a;
             }
         }
     }
 
     public virtual void Death()
     {
-
+        Debug.Log("Dead");
     }
 }
 

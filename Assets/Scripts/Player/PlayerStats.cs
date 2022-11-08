@@ -47,9 +47,14 @@ public class PlayerStats : ScriptableObject
     public Vector2 diveGroundJump;
     public Vector2 diveGroundDash;
     public Vector2 diveAirJump;
-    public Vector2 diveWallJump;
+
+    public float diveBuffer;
+
     public float diveMaxDownGroundSpd;
-    
+
+    [Space(10), Header("Dive Wall Climb")]
+    public Vector2 diveWallJump;
+    public float diveWallChargeTime;
 
     [Space(10), Header("Ground Check")] //hitBox
     public Vector3 groundCheckCenter;
@@ -59,6 +64,15 @@ public class PlayerStats : ScriptableObject
     public Vector2 wallClimbJump;
     public float wallClimbSpeedAdd;
     public float wallClimpCooldown;
+
+    [Space(10), Header("Ping Pong")]
+    public float pingPongTime;
+    public float pingPongAngleStreakLimit;
+
+    public int pingPongMaxStreak;
+    public float pingPongAngleStrength;
+    public float pingPongSpeedStrength;
+    public float pingPongDashConvert;
 
     [Space(10), Header("Gravity")]
     public float gravityScale;
@@ -72,9 +86,15 @@ public class PlayerStats : ScriptableObject
 
     [Space(10)]
     public float dashGravity;
+    public float dashNoStaminaGravity;
 
     public float dashMoveScale;
+    public float dashMoveNoStaminaScale;
     public float dashMaxMoveScale;
+
+    [Space(10), Header("Dash Dive")]
+    public float dashDivePower;
+    public float dashDiveSpeedIncrease;
 
     [Space(10), Header("Dash Ground")]
 
@@ -90,6 +110,8 @@ public class PlayerStats : ScriptableObject
     [Space(10)]
     public float dashRaiseSpeedDecay;
     public float dashRaiseJumpBoost;
+
+    public float dashRaiseNoStaminaScale;
     [Space(10)]
 
     public float dashMaxSpeed;
@@ -102,6 +124,10 @@ public class PlayerStats : ScriptableObject
     [Space(10), Header("Ring Effects")]
     public float ringStaminaRegain;
     public float ringSpeedMult;
+    public float ringNoSpeedDecayTime;
+
+    [Space(10), Header("Other")]
+    public float bossPaddleNoSpeedDecayTime;
 
     [Space(10), Header("Time Effects")]
     public float grantStopTime;

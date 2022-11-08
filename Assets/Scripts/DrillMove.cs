@@ -10,6 +10,7 @@ public class DrillMove : EnemyTemplate
     [SerializeField] private EnemyBulletAttack shoot;
 
     private bool explode;
+    private bool canGrant;
     private float timer;
     private Rigidbody rb;
 
@@ -26,9 +27,10 @@ public class DrillMove : EnemyTemplate
         base.Reset(pos, t);
 
         //Debug.Log(Target.transform.position);
-        transform.LookAt(Target.transform.position + UtilFunctions.RandomV3(new Vector3(25f, 15f, 25f)) + Vector3.up * 12f);
+        transform.LookAt(Target.transform.position + UtilFunctions.RandomV3(new Vector3(25f, 5f, 25f)) + Vector3.up * 1f);
         rb.velocity = transform.forward * stat.speed;
         explode = false;
+        canGrant = true;
     }
 
     // Update is called once per frame
@@ -76,12 +78,13 @@ public class DrillMove : EnemyTemplate
     {
         if (!explode)
         {
-            if (collision.transform.tag == "Player")
-            {
-                collision.gameObject.GetComponent<PlayerMove>().Grant();
-            }
             explode = true;
             timer = stat.detonTime;
+        }
+        if (canGrant && collision.transform.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerMove>().Grant();
+            canGrant = false;
         }
         /*if (collision.transform.tag != "Enemy")
         {

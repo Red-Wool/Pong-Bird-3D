@@ -21,22 +21,24 @@ public class MultiLayerDrill : BossTemplate
     public ParticleSystem topsyTunnelAttack;
 
     //Phase 3 
-    public ParticleSystem ringAttack;
     public ParticleSystem expandAttack;
     */
+    public ParticleSystem ringAttack;
 
 
     public override void Reset(Vector3 pos, GameObject t)
     {
         base.Reset(pos, t);
-
+        /*
         firstLayer.transform.localPosition = Vector3.zero;
         secondLayer.transform.localPosition = Vector3.zero;
-        finalLayer.transform.localPosition = Vector3.zero;
+        finalLayer.transform.localPosition = Vector3.zero;*/
     }
 
     private void Update()
     {
+        Tick(Time.deltaTime);
+
         switch (phase)
         {
             case 0:
@@ -44,6 +46,7 @@ public class MultiLayerDrill : BossTemplate
             case 1:
                 break;
             case 2:
+                
                 break;
         }       
     }
@@ -54,10 +57,11 @@ public class MultiLayerDrill : BossTemplate
         switch (phase)
         {
             case 1:
-                firstLayer.SetActive(false);
+                //firstLayer.SetActive(false);
                 break;
             case 2:
-                secondLayer.SetActive(false);
+                ringAttack.Play();
+                //secondLayer.SetActive(false);
                 break;
         }
     }
