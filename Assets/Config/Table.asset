@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d34d4e871a1d6499da6a91007af3e2, type: 3}
+  m_Name: Table
+  m_EditorClassIdentifier: 
+  table:
+  - prefab:
+      poolObject: {fileID: 6097735900688313292, guid: 8b869167cef8e784984f9fe07a1db3b1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 10, y: 15, z: 10}
+  - prefab:
+      poolObject: {fileID: 6610903867315111914, guid: a534c0b3b06bf904d935b4a3ada5b7d7,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 2, z: 12}
+  - prefab:
+      poolObject: {fileID: 7854913668037566576, guid: e3fcc8793de9cc74f9923928e2071323,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 1656611905733028240, guid: ced80e400479f764392fa7083e7923f7,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 8017003862769731722, guid: 3d27809a32b6f6745bc69ca1138b61e9,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 8719893845287375091, guid: dbb6d1c9cf869f04c9efe3fe389512f9,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 16, y: 16, z: 16}
+  - prefab:
+      poolObject: {fileID: 8922013130639007173, guid: c154d948e5d986146b676ff36efe6eb1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 1200040825440705694, guid: 4458d6f16104c524f820d6dbcb8e5aa8,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 9175375817061736412, guid: 0e39b7624dd3bb14898b2947f3739fa1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 7322735067165431156, guid: 21669234d95d4244aadf1c4dbaac6ea1,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}
+  - prefab:
+      poolObject: {fileID: 7552982217226608531, guid: 165e60caffe6bd747bee2c43a68e5e84,
+        type: 3}
+      initAmount: 30
+    randomSpawnRange: {x: 12, y: 8, z: 12}

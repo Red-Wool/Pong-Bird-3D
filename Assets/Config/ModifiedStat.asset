@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c35c857c0c80640b1bcfd0b3f0cccb, type: 3}
+  m_Name: ModifiedStat
+  m_EditorClassIdentifier: 
+  maxHP: 0
+  maxJump: 0
+  maxStamina: 0
+  invinTime: 0
+  staminaGroundRegain: 0
+  staminaFlapRegain: 0
+  staminaGrantRegain: 0
+  staminaTouchCloud: 0
+  staminaDashCost: 0
+  staminaRaiseCost: 0
+  staminaRaiseRate: 0
+  speed: 0
+  maxSpeed: 0
+  speedDecay: 0
+  jump: 0
+  jumpCooldown: 0
+  noFeatherJump: 0
+  noFeatherJumpSlow: 0
+  noFeatherJumpCooldown: 0
+  holdJump: 0
+  holdJumpCap: 0
+  divePower: 0
+  diveTimeCap: 0
+  diveGroundJump: {x: 0, y: 0}
+  diveGroundDash: {x: 0, y: 0}
+  diveAirJump: {x: 0, y: 0}
+  groundCheckCenter: {x: 0, y: 0, z: 0}
+  groundCheckSize: {x: 0, y: 0, z: 0}
+  wallClimbJump: {x: 0, y: 0}
+  wallClimbSpeedAdd: 0
+  wallClimpCooldown: 0
+  gravityScale: 0
+  downGravityScale: 0
+  dashPower: 0
+  dashInputPower: 0
+  dashTime: 0
+  dashGravity: 0
+  dashMoveScale: 0
+  dashMaxMoveScale: 0
+  dashGroundLand: {x: 0, y: 0}
+  dashGroundJump: {x: 0, y: 0}
+  dashRaiseTime: 0
+  dashRaiseSpeedPower: 0
+  dashRaiseYPower: 0
+  dashRaiseBasePower: 0
+  dashRaiseSpeedYCap: 0
+  dashRaiseSpeedDecay: 0
+  dashRaiseJumpBoost: 0
+  dashMaxSpeed: 0
+  dashMaxMoveCap: 0
+  dashVertVelScale: 0
+  dashCancelJumpScale: 0

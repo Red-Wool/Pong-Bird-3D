@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c35c857c0c80640b1bcfd0b3f0cccb, type: 3}
+  m_Name: PongBird
+  m_EditorClassIdentifier: 
+  maxHP: 4
+  maxJump: 3
+  maxStamina: 5
+  invinTime: 1
+  staminaGroundRegain: 16
+  staminaFlapRegain: 2.5
+  staminaGrantRegain: 4
+  staminaGrantGroundDashRegain: 3
+  staminaTouchCloud: 0.25
+  staminaDashCost: 0.5
+  staminaRaiseCost: 0.3
+  staminaRaiseRate: 1
+  speed: 30
+  maxSpeed: 5
+  speedDecay: 2
+  jump: 12
+  jumpCooldown: 0.3
+  noFeatherJump: 8
+  noFeatherJumpSlow: 0.6
+  noFeatherJumpCooldown: 1
+  holdJump: 20
+  holdJumpCap: 8
+  divePower: 30
+  diveTimeCap: 0.5
+  diveGroundJump: {x: -50, y: 20}
+  diveGroundDash: {x: 20, y: 0}
+  diveAirJump: {x: 80, y: -12}
+  diveBuffer: 0.05
+  diveMaxDownGroundSpd: 20
+  diveWallJump: {x: -1, y: 15}
+  diveWallChargeTime: 0.5
+  groundCheckCenter: {x: 0, y: -1.3, z: 0}
+  groundCheckSize: {x: 0.4, y: 0.2, z: 0.4}
+  wallClimbJump: {x: 15, y: 12}
+  wallClimbSpeedAdd: 1.2
+  wallClimpCooldown: 0.1
+  pingPongTime: 1
+  pingPongAngleStreakLimit: 0
+  pingPongMaxStreak: 5
+  pingPongAngleStrength: 2
+  pingPongSpeedStrength: 5
+  pingPongDashConvert: 5
+  gravityScale: 160
+  downGravityScale: 50
+  dashPower: 1
+  dashInputPower: 0.5
+  dashTime: 0.2
+  dashRingTime: 1
+  dashGravity: 0.06
+  dashNoStaminaGravity: 0.14
+  dashMoveScale: 1.5
+  dashMoveNoStaminaScale: 0.7
+  dashMaxMoveScale: 2.5
+  dashDivePower: 40
+  dashDiveSpeedIncrease: 100
+  dashGroundLand: {x: 0, y: 0}
+  dashGroundJump: {x: 25, y: 3}
+  dashRaiseTime: 0.5
+  dashRaiseSpeedPower: 1
+  dashRaiseYPower: 18
+  dashRaiseBasePower: 0.8
+  dashRaiseSpeedYCap: 0
+  dashRaiseSpeedDecay: 2
+  dashRaiseJumpBoost: 5
+  dashRaiseNoStaminaScale: 0.5
+  dashMaxSpeed: 45
+  dashMaxMoveCap: 30
+  dashMaxDecay: 10
+  dashVertVelScale: 0.1
+  dashCancelJumpScale: 0.5
+  ringStaminaRegain: 3
+  ringSpeedMult: 1.8
+  ringNoSpeedDecayTime: 0
+  bossPaddleNoSpeedDecayTime: 0.25
+  grantStopTime: 0.2
