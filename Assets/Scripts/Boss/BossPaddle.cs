@@ -29,7 +29,7 @@ public class BossPaddle : MonoBehaviour
             Vector3 dir = other.transform.position - container.transform.position;
             dir.y = 1f;
             Debug.Log("BossOw");
-            other.GetComponent<PlayerMove>().InvincibleLaunch(dir.normalized * 150);
+            other.GetComponent<PlayerMove>().InvincibleLaunch(dir.normalized * 60);
             PaddleHit();
         }
     }

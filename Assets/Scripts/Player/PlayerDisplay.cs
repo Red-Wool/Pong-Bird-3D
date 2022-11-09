@@ -33,7 +33,7 @@ public class PlayerDisplay : MonoBehaviour
 
         scoreDisplay.text = GameManager.Score.ToString();
         hpDisplay.text = "HP: " + hp.value;
-        coinDisplay.text = "Yellow lemonade: " + coin.value;
+        
 
         for (int i = 0; i < 3; i++)
         {
@@ -46,5 +46,10 @@ public class PlayerDisplay : MonoBehaviour
 
             feathers[i].transform.localPosition = position;
         }
+    }
+
+    public void UpdateCoin()
+    {
+        coinDisplay.text = "Yellow lemonade: " + coin.value;
     }
 }
