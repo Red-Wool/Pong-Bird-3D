@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class PlayerDisplay : MonoBehaviour
 {
@@ -13,26 +14,40 @@ public class PlayerDisplay : MonoBehaviour
     [SerializeField] private StoredValue stamina;
     [SerializeField] private StoredValue coin;
 
+    [SerializeField] private Image health;
+
+    [SerializeField] private GameObject staminaHold;
     [SerializeField] private Image staminaBar;
+    
     [SerializeField] private GameObject[] feathers;
     [SerializeField] private TMP_Text scoreDisplay;
     [SerializeField] private TMP_Text hpDisplay;
     [SerializeField] private TMP_Text coinDisplay;
     [SerializeField] private float barSpeed;
 
+    private Vector3 coinTextPos;
+    private IEnumerator coinAppear;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        coinTextPos = coinDisplay.transform.position;
+        coinDisplay.text = "Yellow lemonade: " + coin.value;
+        PlayerMove.death.AddListener(UpdateCoin);
     }
 
     // Update is called once per frame
     void Update()
     {
+        health.fillAmount = Mathf.Lerp(health.fillAmount, hp.value / stat.maxHP, barSpeed * Time.deltaTime);
+
         staminaBar.fillAmount = Mathf.Lerp(staminaBar.fillAmount, stamina.value / stat.maxStamina, barSpeed * Time.deltaTime);
+        staminaHold.SetActive(stamina.value <= stat.maxStamina * .99f);
 
         scoreDisplay.text = GameManager.Score.ToString();
         hpDisplay.text = "HP: " + hp.value;
+
+        //if ()
         
 
         for (int i = 0; i < 3; i++)
@@ -48,8 +63,37 @@ public class PlayerDisplay : MonoBehaviour
         }
     }
 
+    public void CoinGet(int num)
+    {
+        coinDisplay.transform.DOJump(coinTextPos, 10f, num, .15f*num);
+        UpdateCoin();
+    }
+
     public void UpdateCoin()
     {
         coinDisplay.text = "Yellow lemonade: " + coin.value;
+        
+        
+        if (coinAppear != null)
+            StopCoroutine(coinAppear);
+
+        coinAppear = CoinAppear();
+        StartCoroutine(coinAppear);
+    }
+
+    public IEnumerator CoinAppear()
+    {
+        CoinTextVisibility(true);
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log(GameManager.GameStart + " a dw");
+        if (GameManager.GameStart)
+            CoinTextVisibility(false);
+    }
+
+    public void CoinTextVisibility(bool flag)
+    {
+        Debug.Log(flag);
+        coinDisplay.DOFade(flag ? 1 : 0, .1f);
     }
 }

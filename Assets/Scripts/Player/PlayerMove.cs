@@ -478,7 +478,7 @@ public class PlayerMove : MonoBehaviour
         backDist.y = 0;
         backDist = backDist.normalized;
 
-        Debug.Log(pingPongStreak + " Streak " + Vector3.Angle(curPingPongAngle, backDist));
+        //Debug.Log(pingPongStreak + " Streak " + Vector3.Angle(curPingPongAngle, backDist));
         if (pingPongTime > 0f && Mathf.Abs(Vector3.Angle(curPingPongAngle, backDist)) >= stats.pingPongAngleStreakLimit)
         {
             Debug.Log("Increase");
@@ -561,8 +561,10 @@ public class PlayerMove : MonoBehaviour
         coin.value += num;
         if (display != null)
         {
-            display.UpdateCoin();
+            display.CoinGet(num);
         }
+        else
+            Debug.Log("NoDispaly");
         
     }
 

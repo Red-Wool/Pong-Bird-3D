@@ -132,7 +132,7 @@ public class UFOMove : MonoBehaviour
             transform.position += Vector3.up * 100;
 
             isActive = false;
-            other.GetComponent<PlayerMove>().GetCoin(1);
+            other.GetComponent<PlayerMove>().GetCoin(5);
         }
     }
 }
