@@ -34,7 +34,7 @@ public class ControlBubble : MonoBehaviour
         if (currentInter)
         {
             smoothTime += Time.deltaTime * smoothSpeed;
-            bubble.transform.position = cam.WorldToScreenPoint(currentInter.transform.position);
+            bubble.transform.position = cam.WorldToScreenPoint(currentInter.transform.position + Vector3.up * currentInter.height);
             if (Input.GetKeyDown(control.interact))
             {
                 currentInter.Interact(player);

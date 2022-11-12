@@ -48,11 +48,13 @@ MonoBehaviour:
   wallClimbJump: {x: 15, y: 12}
   wallClimbSpeedAdd: 1.2
   wallClimpCooldown: 0.1
-  pingPongTime: 3
+  pingPongTime: 2
   pingPongAngleStreakLimit: 30
-  pingPongMaxStreak: 3
-  pingPongAngleStrength: 2
-  pingPongSpeedStrength: 5
+  pingPongMaxStreak: 5
+  pingPongAngleStrength: 1.5
+  pingPongWallJumpStrength: 3
+  pingPongSpeedStrength: 20
+  pingPongSpeedTime: 1.9
   pingPongDashConvert: 5
   gravityScale: 160
   downGravityScale: 50

@@ -9,6 +9,10 @@ public class PlayerDisplay : MonoBehaviour
 {
     [SerializeField] private PlayerStats stat;
 
+    [SerializeField] private Transform playerUITrack;
+    [SerializeField] private Transform track;
+    [SerializeField] private float trackSpeed;
+
     [SerializeField] private StoredValue hp;
     [SerializeField] private StoredValue jump;
     [SerializeField] private StoredValue stamina;
@@ -25,6 +29,10 @@ public class PlayerDisplay : MonoBehaviour
     [SerializeField] private TMP_Text coinDisplay;
     [SerializeField] private float barSpeed;
 
+    private Vector3 curTrackPos;
+
+    private Camera cam;
+
     private Vector3 coinTextPos;
     private IEnumerator coinAppear;
 
@@ -32,8 +40,11 @@ public class PlayerDisplay : MonoBehaviour
     void Start()
     {
         coinTextPos = coinDisplay.transform.position;
-        coinDisplay.text = "Yellow lemonade: " + coin.value;
+        coinDisplay.text = "Lemonade: " + coin.value;
         PlayerMove.death.AddListener(UpdateCoin);
+
+        cam = Camera.main;
+        curTrackPos = cam.WorldToScreenPoint(track.position);
     }
 
     // Update is called once per frame
@@ -47,6 +58,9 @@ public class PlayerDisplay : MonoBehaviour
         scoreDisplay.text = GameManager.Score.ToString();
         hpDisplay.text = "HP: " + hp.value;
 
+        curTrackPos = Vector3.Lerp(curTrackPos, cam.WorldToScreenPoint(track.position), trackSpeed * Time.deltaTime);
+        playerUITrack.transform.position = curTrackPos;
+
         //if ()
         
 
@@ -57,7 +71,7 @@ public class PlayerDisplay : MonoBehaviour
             if (!check) { break; }
 
             Vector3 position = feathers[i].transform.localPosition;
-            position.y = Mathf.Sin(i * 2f + Time.time) * 5f;
+            position.y = Mathf.Sin(i * 2f + Time.time) * 1f;
 
             feathers[i].transform.localPosition = position;
         }
@@ -71,7 +85,7 @@ public class PlayerDisplay : MonoBehaviour
 
     public void UpdateCoin()
     {
-        coinDisplay.text = "Yellow lemonade: " + coin.value;
+        coinDisplay.text = "Lemonade: " + coin.value;
         
         
         if (coinAppear != null)
