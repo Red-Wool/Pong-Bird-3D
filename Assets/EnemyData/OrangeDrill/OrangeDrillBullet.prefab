@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8752468493687915584}
   - component: {fileID: 8752468493687915585}
   - component: {fileID: 8752468493687915598}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: OrangeDrillBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3772,7 +3772,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 0
     light: {fileID: 0}
     randomDistribution: 1
