@@ -984,12 +984,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 1
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 0
+          value: 0
+          inSlope: -0.11804734
+          outSlope: 0.000012896005
+          tangentMode: 1
           weightedMode: 0
           inWeight: 0
+          outWeight: 0.8
+        - serializedVersion: 3
+          time: 0.25
+          value: 1
+          inSlope: 1.1133684
+          outSlope: Infinity
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.6967184
           outWeight: 0
         - serializedVersion: 3
           time: 0.95
@@ -4783,7 +4792,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: 631733c7328235f4c811df652a5d4d98, type: 3}
+  - {fileID: 2100000, guid: 8804e247eec1ab944bba9827a92eb2c7, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9690,7 +9699,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: 631733c7328235f4c811df652a5d4d98, type: 3}
+  - {fileID: 2100000, guid: 8804e247eec1ab944bba9827a92eb2c7, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

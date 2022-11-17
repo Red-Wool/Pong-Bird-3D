@@ -9,7 +9,22 @@ ModelImporter:
   - first:
       74: 7659650950348301564
     second: Cylinder|Material.003Action
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: a8e1b5ddf5162244ba773f3050a86661, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 8804e247eec1ab944bba9827a92eb2c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: 5f7af4433526c0a44a6d203add7f2f60, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

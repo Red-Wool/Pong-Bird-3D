@@ -12,7 +12,17 @@ ModelImporter:
   - first:
       74: -6423022319758673393
     second: Cylinder.002|Cylinder.002Action.002
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 03af9da559517a641aeef4d727c6156e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 50740fccdc3e1d5419b1f8ba0d773209, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -51,7 +61,7 @@ ModelImporter:
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
-    importLights: 1
+    importLights: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
