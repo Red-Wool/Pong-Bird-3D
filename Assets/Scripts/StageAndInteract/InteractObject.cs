@@ -4,7 +4,5 @@ using UnityEngine;
 
 public abstract class InteractObject : MonoBehaviour
 {
-    public float height;
-
     public abstract void Interact(PlayerMove player);
 }

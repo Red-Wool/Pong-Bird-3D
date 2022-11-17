@@ -71,11 +71,7 @@ public class PlayerStats : ScriptableObject
 
     public int pingPongMaxStreak;
     public float pingPongAngleStrength;
-
-    public float pingPongWallJumpStrength;
     public float pingPongSpeedStrength;
-    public float pingPongSpeedTime;
-
     public float pingPongDashConvert;
 
     [Space(10), Header("Gravity")]

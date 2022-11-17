@@ -14,7 +14,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private PlayerStats stats;
 
     [SerializeField] private PlayerEffect effect;
-    [SerializeField] private PlayerDisplay display;
 
     [SerializeField] private Controls control;
 
@@ -25,6 +24,7 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody rb;
     private PlayerMusic music;
+    private SphereCollider hitBox;
 
     private bool isDash; public bool IsDash { get { return isDash; } }
     private bool isDive;
@@ -72,6 +72,7 @@ public class PlayerMove : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         music = GetComponent<PlayerMusic>();
+        hitBox = GetComponent<SphereCollider>();
 
         canMove = true;
 
@@ -120,8 +121,7 @@ public class PlayerMove : MonoBehaviour
         move = rb.velocity;
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (input.magnitude > 1f) { input = input.normalized; }
-        input = Quaternion.Euler(0f, Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0f) * Vector3.forward * 
-            (stats.speed + (pingPongTime > stats.pingPongSpeedTime ? 1f : 0f) * pingPongStreak * stats.pingPongSpeedStrength) * input.magnitude;
+        input = Quaternion.Euler(0f, Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0f) * Vector3.forward * stats.speed * input.magnitude;
 
         if (noSpeedDecayTime <= 0f)
         {
@@ -141,18 +141,6 @@ public class PlayerMove : MonoBehaviour
         noFeatherTime -= Time.deltaTime;
         invinTime -= Time.deltaTime;
         noSpeedDecayTime -= Time.deltaTime;
-        
-        //Ping Pong Action
-        if (canPingPong)
-        {
-            pingPongTime -= Time.deltaTime;
-
-            if (pingPongTime <= 0f)
-            {
-                canPingPong = false;
-                pingPongStreak = 0;
-            }
-        }
 
         //Jumping
         if (Input.GetKeyDown(control.jump)) 
@@ -477,30 +465,26 @@ public class PlayerMove : MonoBehaviour
     {
         wallTime = stats.wallClimpCooldown;
 
+        //Ping Pong Action
         Vector3 backDist = transform.position - contact;
         backDist.y = 0;
-        backDist = backDist.normalized;
+        backDist = curPingPongAngle.normalized;
 
-        //Debug.Log(pingPongStreak + " Streak " + Vector3.Angle(curPingPongAngle, backDist));
         if (pingPongTime > 0f && Mathf.Abs(Vector3.Angle(curPingPongAngle, backDist)) >= stats.pingPongAngleStreakLimit)
         {
-            Debug.Log("Increase");
             canPingPong = true;
-            pingPongStreak = Mathf.Min(pingPongStreak+1, stats.pingPongMaxStreak);
+            pingPongStreak = Mathf.Min(pingPongStreak++, stats.pingPongMaxStreak);
         }
-        curPingPongAngle = backDist;
-        
+        Debug.Log(pingPongStreak + " Streak " + Vector3.Angle(curPingPongAngle, backDist));
 
         effect.Flap.Play();
-        backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x + (diveTime > stats.diveWallChargeTime ? stats.diveWallJump.x : 0) + 
-            ((canPingPong ? 1f : 0f) * pingPongStreak * stats.pingPongWallJumpStrength) ) + 
-            UtilFunctions.MagnitudeChange(move.normalized + (canPingPong ? 1f : 0f) * input * stats.pingPongAngleStrength, 
-            UtilFunctions.Magnitude2D(move.x,move.z) * stats.wallClimbSpeedAdd);
+        backDist = UtilFunctions.MagnitudeChange(transform.position - contactPoint, stats.wallClimbJump.x + (diveTime > stats.diveWallChargeTime ? stats.diveWallJump.x : 0)) + 
+            UtilFunctions.MagnitudeChange(move, UtilFunctions.Magnitude2D(move.x,move.z) * stats.wallClimbSpeedAdd);
 
-        /*if (canPingPong)
+        if (canPingPong)
         {
             backDist = UtilFunctions.MagnitudeChange(backDist.normalized + input * stats.pingPongAngleStrength, backDist.magnitude + pingPongStreak * stats.pingPongSpeedStrength);
-        }*/
+        }
 
         backDist.y = stats.wallClimbJump.y + (diveTime > stats.diveWallChargeTime ? stats.diveWallJump.y : 0);
 
@@ -519,7 +503,7 @@ public class PlayerMove : MonoBehaviour
         jump.value = stats.maxJump;
         stamina.value = stats.maxStamina;
 
-        dir.y += 1f + (move.y > 0f ? move.y * .5f : 0);
+        dir.y += Mathf.Abs(move.y);
 
         noSpeedDecayTime = stats.bossPaddleNoSpeedDecayTime;
         TimeManager.Instance.MiniPause(0f, .25f);
@@ -557,16 +541,11 @@ public class PlayerMove : MonoBehaviour
         return false;
     }
 
+
+
     public void GetCoin(int num)
     {
         coin.value += num;
-        if (display != null)
-        {
-            display.CoinGet(num);
-        }
-        else
-            Debug.Log("NoDispaly");
-        
     }
 
     private void OnCollisionEnter(Collision collision)

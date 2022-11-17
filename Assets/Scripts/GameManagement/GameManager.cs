@@ -6,7 +6,6 @@ using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMove player;
-    [SerializeField] private PlayerDisplay display; 
     [SerializeField] private PaddleObject paddle;
     [SerializeField] private GameObject spawnPlatform;
 
@@ -40,8 +39,6 @@ public class GameManager : MonoBehaviour
         gameStart = true;
 
         player.Heal();
-        display.UpdateCoin();
-            
 
         spawnPlatform.transform.DOKill();
         spawnPlatform.transform.DOMoveY(-100f, 10f).SetEase(Ease.InOutSine).OnComplete(() => spawnPlatform.SetActive(false));
