@@ -20,7 +20,7 @@ MonoBehaviour:
   staminaFlapRegain: 2.5
   staminaGrantRegain: 4
   staminaGrantGroundDashRegain: 3
-  staminaTouchCloud: 0.25
+  staminaTouchCloud: 0.2
   staminaDashCost: 0.5
   staminaRaiseCost: 0.3
   staminaRaiseRate: 1
@@ -32,8 +32,8 @@ MonoBehaviour:
   noFeatherJump: 8
   noFeatherJumpSlow: 0.6
   noFeatherJumpCooldown: 1
-  holdJump: 20
-  holdJumpCap: 8
+  holdJump: 25
+  holdJumpCap: 9
   divePower: 30
   diveTimeCap: 0.5
   diveGroundJump: {x: -50, y: 20}
@@ -57,14 +57,15 @@ MonoBehaviour:
   pingPongSpeedTime: 1.9
   pingPongDashConvert: 5
   gravityScale: 160
-  downGravityScale: 50
-  dashPower: 1
-  dashInputPower: 0.5
+  downGravityScale: 70
+  dashPower: 1.6
+  dashInputDir: 1.5
+  dashInputDirDecay: 1
   dashTime: 0.2
   dashRingTime: 1
   dashGravity: 0.06
   dashNoStaminaGravity: 0.14
-  dashMoveScale: 1.5
+  dashMoveScale: 1.7
   dashMoveNoStaminaScale: 0.7
   dashMaxMoveScale: 2.5
   dashDivePower: 40

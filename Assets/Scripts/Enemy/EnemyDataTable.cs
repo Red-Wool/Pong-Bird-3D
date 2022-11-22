@@ -15,29 +15,40 @@ public class EnemyDataTable : ScriptableObject
 
     public float pointBaseScale;
 
-    public EnemyInfo[] enemy;
+    public EnemySpawnData[] enemy;
     public EnemyBulletAttack[] attacks;
 
     private int curIndex = -1;
     private int savedVal = -1;
 
-    public EnemyInfo GetRandomEnemy(int index)
+    public int CheckTable(int round)
     {
-        index = Mathf.Clamp(index, 0, enemy.Length - 1);
-        //Debug.Log(index);
-        if (index != curIndex)
+        savedVal = 0;
+        EnemySpawnData s;
+        for (int i = 0; i < enemy.Length; i++)
         {
-            curIndex = index;
-            savedVal = 0;
-            for (int i = 0; i <= index; i++)
+            s = enemy[i];
+            if (s.round <= round)
             {
+                if (s.round == round && s.isBoss)
+                {
+                    return i;
+                }
+
+                curIndex = i;
                 savedVal += enemy[i].weight;
             }
+            else
+                break;
         }
+        return -1;
+    }
 
+    public EnemySpawnData GetRandomEnemy(int round)
+    {
         int rng = Random.Range(0, savedVal) + 1;
         //Debug.Log(rng + " Rng");
-        for (int i = 0; i <= index; i++)
+        for (int i = 0; i <= curIndex; i++)
         {
             rng -= enemy[i].weight;
 

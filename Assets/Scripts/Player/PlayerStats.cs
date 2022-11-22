@@ -84,7 +84,10 @@ public class PlayerStats : ScriptableObject
 
     [Space(10),Header("Dash")]
     public float dashPower;
-    public float dashInputPower;
+
+    public float dashInputDir;
+    public float dashInputDirDecay;
+
     public float dashTime;
     public float dashRingTime;
 

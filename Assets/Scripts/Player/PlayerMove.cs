@@ -458,11 +458,20 @@ public class PlayerMove : MonoBehaviour
     {
 
         isDash = true;
+        Vector3 xz = new Vector3(move.x, 0, move.z);
         //extraSpeed = speed * dashPower;
         if (hasStamina)
-            dashDirection = new Vector3(move.x, stats.dashVertVelScale * (move.y + 1f), move.z) * stats.dashPower + input * stats.dashInputPower;
+        {
+            Vector3 i = (xz.normalized - input.normalized) * Mathf.Min(xz.magnitude, 1f) * Mathf.Min(input.magnitude, 1f);
+            //Debug.Log(xz + " " + input);
+            //i *= 1 - Mathf.Max(i.magnitude - stats.dashInputDirDecay, 0f);
+            dashDirection = UtilFunctions.MagnitudeChange(xz + input * stats.dashInputDir,
+                UtilFunctions.Magnitude2D(move.x, move.z) * stats.dashPower * (1 - Mathf.Max(i.magnitude - stats.dashInputDirDecay, 0f))) + 
+                Vector3.up * stats.dashVertVelScale * (move.y + 1f) * stats.dashPower;
+        }
+            //new Vector3(move.x, stats.dashVertVelScale * (move.y + 1f), move.z) * stats.dashPower + input * stats.dashInputPower;
         else
-            dashDirection = new Vector3(move.x, (move.y > 0f ? move.y * stats.dashVertVelScale : move.y), move.z);
+            dashDirection = xz + Vector3.up * (move.y > 0f ? move.y * stats.dashVertVelScale : move.y);// new Vector3(move.x, (move.y > 0f ? move.y * stats.dashVertVelScale : move.y), move.z);
 
         ChangeStamina(-stats.staminaDashCost);
         yield return new WaitForSeconds(time);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -9,16 +10,26 @@ public class EnemySpawn : MonoBehaviour
 
     [SerializeField] private float timer;
     private float nextTick;
+    private bool fightBoss;
 
     private int enemyIndex;
+
+    public static UnityEvent bossSummon;
+
+    public void Awake()
+    {
+        bossSummon = new UnityEvent();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        
 
         PaddleObject.PointScored += ResetTimer;
         PlayerMove.death.AddListener(ResetTimer);
 
-        foreach(EnemyInfo e in enemies.enemy)
+        foreach(EnemySpawnData e in enemies.enemy)
         {
             e.enemyPrefab.AddObjects();
         }
@@ -32,12 +43,29 @@ public class EnemySpawn : MonoBehaviour
     {
         timer = 0;
         nextTick = 0;
+
+        fightBoss = false;
+
+        int bossNum = enemies.CheckTable(GameManager.Score);
+        if (bossNum != -1)
+        {
+            
+            SummonBoss(enemies.enemy[bossNum]);
+        }
     }
+
+    public void SummonBoss(EnemySpawnData boss)
+    {
+        fightBoss = true;
+        bossSummon.Invoke();
+        boss.enemyPrefab.GetObject();
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GameStart)
+        if (GameManager.GameStart && !fightBoss)
         {
             timer += Time.deltaTime;
             if (timer > nextTick)
@@ -53,11 +81,10 @@ public class EnemySpawn : MonoBehaviour
     {
         float dangerLvl = Mathf.Min(enemies.timeScale * timer, Mathf.Clamp(enemies.timeScalePointMult * GameManager.Score,enemies.timeScaleStart,enemies.timeScaleCap)) + Mathf.Min(GameManager.Score * enemies.pointBaseScale, 100);
         int enemyPts = Mathf.Clamp((int)Random.Range(dangerLvl * 0.2f, dangerLvl * 0.6f), 0, 30);
-
-
+        
         for (int i = 0; i < enemyPts; i++)
         {
-            EnemyInfo e = enemies.GetRandomEnemy(GameManager.Score / 5);
+            EnemySpawnData e = enemies.GetRandomEnemy(GameManager.Score);
 
             Vector3 spawnLocation = Vector3.zero;
             switch (e.type)
@@ -82,8 +109,11 @@ public class EnemySpawn : MonoBehaviour
 }
 
 [System.Serializable]
-public struct EnemyInfo
+public struct EnemySpawnData
 {
+    public int round;
+    public bool isBoss;
+
     public ObjectPool enemyPrefab;
     public int weight;
 

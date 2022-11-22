@@ -30,6 +30,8 @@ public class PaddleObject : MonoBehaviour
 
     private BoxCollider hitbox;
 
+    private IEnumerator movePaddle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,8 @@ public class PaddleObject : MonoBehaviour
         hit = false;
 
         PlayerMove.death.AddListener(ResetPaddle);
+        BossTemplate.BossDeath.AddListener(PaddleHit);
+        EnemySpawn.bossSummon.AddListener(BossBegin);
     }
 
     private void Update()
@@ -118,7 +122,21 @@ public class PaddleObject : MonoBehaviour
         if (hit) { return; }
         if (collision.transform.tag == "Player")
         {
-            StartCoroutine(MoveAnimation());
+            PaddleHit();
         }
+    }
+
+    private void PaddleHit()
+    {
+        movePaddle = MoveAnimation();
+        StartCoroutine(movePaddle);
+    }
+
+    private void BossBegin()
+    {
+        if (movePaddle != null)
+            StopCoroutine(movePaddle);
+
+        transform.DOScale(Vector3.zero, .2f);
     }
 }

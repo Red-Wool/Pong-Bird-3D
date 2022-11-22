@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using DG.Tweening;
 
 public abstract class BossTemplate : EnemyTemplate
@@ -10,6 +11,14 @@ public abstract class BossTemplate : EnemyTemplate
 
     [SerializeField] protected BossAttack[] attack;
     [SerializeField] protected BossPaddleContainer[] weakPoints;
+
+    public static UnityEvent BossDeath;
+
+    public void Awake()
+    {
+        if (BossDeath == null)
+            BossDeath = new UnityEvent();
+    }
 
     public override void Reset(Vector3 pos, GameObject t)
     {
@@ -74,6 +83,7 @@ public abstract class BossTemplate : EnemyTemplate
     public virtual void Death()
     {
         Debug.Log("Dead");
+        BossDeath.Invoke();
     }
 }
 

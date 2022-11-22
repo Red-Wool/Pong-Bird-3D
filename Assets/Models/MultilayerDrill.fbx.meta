@@ -1,34 +1,12 @@
 fileFormatVersion: 2
-guid: 1ad69172727d77d4987ac02b24a05284
+guid: e9260fb2d4f63364cb9051378192f233
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
-  externalObjects:
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 4737b82066bc2f64897beb5774d19d6b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: 8d07ebf63d0c84d40be275ecd3cfd176, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.003
-    second: {fileID: 2100000, guid: 14567cea807eb0b41a90fbd606c7918d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.004
-    second: {fileID: 2100000, guid: b787db052656ab9489316908412fa464, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 86b17e263c4c50544878019d970cc798, type: 2}
+      74: -3078611860863420573
+    second: Cylinder|Cylinder|Cylinder|CylinderAction|Cylinder|CylinderAction
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
